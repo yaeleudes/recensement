@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportInfo;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IndexController extends Controller
 {
@@ -248,5 +250,9 @@ class IndexController extends Controller
         ]);
         // dd($user);
         return redirect()->route('valide')->with('success', 'Merci, vous avez bien été enregistré!');
+    }
+    public function exportUsersData(){
+        $fileName = 'users.xlsx';
+        return Excel::download(new ExportInfo, $fileName);
     }
 }

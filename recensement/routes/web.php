@@ -19,3 +19,4 @@ Route::post('/enregistrement', [IndexController::class,'enregistrement'])->name(
 Route::get('/enregistrement/valide', function () {
     return view('valide');
 })->name('valide');
+Route::get('/export', [IndexController::class, 'exportUsersData']);

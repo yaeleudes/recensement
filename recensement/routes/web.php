@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,9 @@ use App\Http\Controllers\IndexController;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+
 Route::post('/enregistrement', [IndexController::class,'enregistrement'])->name('user.enregistrement');
+
 Route::get('/enregistrement/valide', function () {
     return view('valide');
 })->name('valide');
-Route::get('/export', [IndexController::class, 'exportUsersData']);

@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenoms');
             $table->string('numero')->unique();
-            $table->string('autre_numero')->nullable()->unique();
-            $table->string('email')->unique();
+            $table->string('autre_numero')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('pays');
             $table->string('ville');
             $table->enum('sex', ['Masculin', 'Feminin', 'Autre'])->default('Masculin');
-            $table->string('parrain')->default('moi');
+            $table->string('parrain');
             $table->enum('electeur', ['Oui', 'Non'])->default('Oui');
             $table->enum('pdci-rda', ['Oui', 'Non'])->default('Oui');
             $table->timestamp('email_verified_at')->nullable();

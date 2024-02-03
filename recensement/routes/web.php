@@ -22,3 +22,9 @@ Route::post('/enregistrement', [IndexController::class,'enregistrement'])->name(
 Route::get('/enregistrement/valide', function () {
     return view('valide');
 })->name('valide');
+
+Route::get('/export', [IndexController::class, 'exportUsersData']);
+
+Route::get('/Admin/login', [AdminController::class, 'index'])->name('admin.login');
+Route::post('/Admin/login', [AdminController::class, 'login'])->name('login');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:admin');

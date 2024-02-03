@@ -19,7 +19,19 @@
         </header>
         <section class="p-2">
             <p class="text-danger">* Indique une question obligatoire</p>
-            <form>
+
+            @if ($errors->any())
+                <div class="arlet arlet-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form  method="POST" action="{{route('user.enregistrement')}}">
+                @csrf
                 <div class="mb-3">
                     <label for="nom" class="form-label fw-bold">Nom <span class="text-danger">*</span></label>
                     <input type="text" name="nom" class="form-control" id="nom">
@@ -34,19 +46,19 @@
                     <label class="fw-bold">Sexe <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sexe" id="M" checked>
+                            <input class="form-check-input" type="radio" name="sexe" value="Masculin" id="M" checked>
                             <label class="form-check-label" for="M">
                                 Masculin
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sexe" id="F">
+                            <input class="form-check-input" type="radio" name="sexe" value="Feminin" id="F">
                             <label class="form-check-label" for="F">
                                 Féminin
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sexe" id="A">
+                            <input class="form-check-input" type="radio" name="sexe" value="Autre" id="A">
                             <label class="form-check-label" for="A">
                                 Autre
                             </label>
@@ -58,14 +70,15 @@
                     <label class="fw-bold">Téléphone WhatsApp <span class="text-danger">*</span></label>
                     <div class="row mt-2">
                         <div class="col-4">
-                            <select class="form-select" name="idwhatsapp" required>
-                                <option selected value="+225">+225</option>
-                                <option value="+33">+33</option>
-                                <option value="+233">+233</option>
+                            <select id="indicatif" class="form-select" name="idwhatsapp" required>
+                                <option selected value="">Choisissez le pays</option>
+                                @foreach ($paysData as $pays)
+                                    <option value="{{$pays['indicatif']}}">{{$pays['nom']}} : {{$pays['indicatif']}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col">
-                            <input type="tel" name="whatsapp" class="form-control" required>
+                            <input type="tel" name="whatsapp" class="form-control" placeholder="Saisissez votre numero" required>
                         </div>
                     </div>
                 </div>
@@ -75,28 +88,30 @@
                     <div class="row mt-2">
                         <div class="col-4">
                             <select class="form-select" name="idphone">
-                                <option selected value="+225">+225</option>
-                                <option value="+33">+33</option>
-                                <option value="+233">+233</option>
+                                <option selected value="">Choisissez le pays</option>
+                                @foreach ($paysData as $pays)
+                                    <option value="{{$pays['indicatif']}}">{{$pays['nom']}} : {{$pays['indicatif']}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col">
-                            <input type="tel" name="phone" class="form-control">
+                            <input type="tel" name="phone" class="form-control" placeholder="Saisissez votre numero">
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">Email</label>
-                    <input type="email" class="form-control" id="email">
+                    <input type="email" name="email" class="form-control" id="email">
                 </div>
 
                 <div class="mb-3">
                     <label class="fw-bold mb-2">Pays de résidence <span class="text-danger">*</span></label>
                     <select class="form-select" name="pays" required>
-                        <option selected value="Côte d'Ivoire">Côte d'Ivoire</option>
-                        <option value="France">France</option>
-                        <option value="Ghana">Ghana</option>
+                        <option selected value="">Choisissez le pays</option>
+                                @foreach ($paysData as $pays)
+                                    <option value="{{$pays['nom']}}">{{$pays['nom']}}</option>
+                                @endforeach
                     </select>
                 </div>
 
@@ -120,13 +135,13 @@
                     <label class="fw-bold">Etes-vous électeur ? <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="electeur" id="Ye" checked>
+                            <input class="form-check-input" type="radio" name="electeur" id="Ye" value="Oui" checked>
                             <label class="form-check-label" for="Ye">
                                 Oui
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="electeur" id="Ne">
+                            <input class="form-check-input" type="radio" name="electeur" id="Ne" value="Non">
                             <label class="form-check-label" for="Ne">
                                 Non
                             </label>
@@ -138,13 +153,13 @@
                     <label class="fw-bold">Etes-vous du PDCI-RDA ? <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pdci" id="Yp" checked>
+                            <input class="form-check-input" type="radio" name="pdci" id="Yp" value="Oui" checked>
                             <label class="form-check-label" for="Yp">
                                 Oui
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pdci" id="Np">
+                            <input class="form-check-input" type="radio" name="pdci" id="Np" value="Non">
                             <label class="form-check-label" for="Np">
                                 Non
                             </label>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [IndexController::class, 'index']);
+Route::post('/enregistrement', [IndexController::class,'enregistrement'])->name('user.enregistrement');
+Route::get('/enregistrement/valide', function () {
+    return view('valide');
+})->name('valide');

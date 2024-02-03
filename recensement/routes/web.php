@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,14 @@ use App\Http\Controllers\IndexController;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+
 Route::post('/enregistrement', [IndexController::class,'enregistrement'])->name('user.enregistrement');
+
 Route::get('/enregistrement/valide', function () {
     return view('valide');
 })->name('valide');
+
+//Admin
+Route::get('/Admin/login', [AdminController::class, 'index'])->name('admin.login');
+Route::post('/Admin/login', [AdminController::class, 'login'])->name('login');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:admin');

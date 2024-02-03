@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <header class="text-center">
-            <img src="download.png" alt="Logo">
+            <img src="{{asset('assets/images/download.png')}}" alt="Logo" height="128" width="128">
             <h1 class="text-uppercase fw-bold">Concorde national</h1>
             <p>Ce formulaire est créé pour recueillir les informations récentes sur les adhérents à Concorde Nationale
                 et mettre à jour la base de données. Merci pour votre confiance !</p>
@@ -24,7 +24,7 @@
                 <div class="arlet arlet-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{$error}}</li>
+                            <li class="text-danger">{{$error}}</li>
                         @endforeach
                     </ul>
                 </div>
@@ -34,12 +34,22 @@
                 @csrf
                 <div class="mb-3">
                     <label for="nom" class="form-label fw-bold">Nom <span class="text-danger">*</span></label>
-                    <input type="text" name="nom" class="form-control" id="nom">
+                    <input type="text" name="nom" class="form-control" id="nom" required>
+                    @error('nom')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="prenoms" class="form-label fw-bold">Prénom(s) <span class="text-danger">*</span></label>
-                    <input type="text" name="prenoms" class="form-control" id="prenoms">
+                    <input type="text" name="prenoms" class="form-control" id="prenoms" required>
+                    @error('prenoms')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -69,7 +79,7 @@
                 <div class="mb-3">
                     <label class="fw-bold">Téléphone WhatsApp <span class="text-danger">*</span></label>
                     <div class="row mt-2">
-                        <div class="col-4">
+                        <div class="col">
                             <select id="indicatif" class="form-select" name="idwhatsapp" required>
                                 <option selected value="">Choisissez le pays</option>
                                 @foreach ($paysData as $pays)
@@ -79,6 +89,11 @@
                         </div>
                         <div class="col">
                             <input type="tel" name="whatsapp" class="form-control" placeholder="Saisissez votre numero" required>
+                            @error('whatsapp')
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -86,7 +101,7 @@
                 <div class="mb-3">
                     <label class="fw-bold">Autre téléphone</label>
                     <div class="row mt-2">
-                        <div class="col-4">
+                        <div class="col">
                             <select class="form-select" name="idphone">
                                 <option selected value="">Choisissez le pays</option>
                                 @foreach ($paysData as $pays)
@@ -96,6 +111,11 @@
                         </div>
                         <div class="col">
                             <input type="tel" name="phone" class="form-control" placeholder="Saisissez votre numero">
+                            @error('whatsapp')
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -103,6 +123,11 @@
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">Email</label>
                     <input type="email" name="email" class="form-control" id="email">
+                    @error('email')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -128,7 +153,12 @@
                     <label for="parrain" class="form-label fw-bold">Votre parrain (celui qui vous fait connaître
                         CONCORDE)
                         <span class="text-danger">*</span></label>
-                    <input type="text" name="parrain" class="form-control" id="parrain">
+                    <input type="text" name="parrain" class="form-control" id="parrain" value="Moi Même">
+                    @error('parrain')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">

@@ -9,11 +9,20 @@
 </head>
 <body class="container text-center">
     <img src="{{asset('assets/images/download.png')}}" alt="Logo" height="128" width="128">
-    <h1 class="text-uppercase fw-bold">Concorde national</h1>
+    <h1 class="text-uppercase fw-bold">Concorde nationale</h1>
     @if (session('success'))
     <div class="row">
         <div class="col flex-column align-items-center justify-content-center">
             <div class="alert alert-success mx-auto text-center">
+                {{session('success')}}
+            </div>
+        </div>
+    </div>
+    @endif
+    @if (session('deja_soumis'))
+    <div class="row">
+        <div class="col flex-column align-items-center justify-content-center">
+            <div class="alert alert-danger mx-auto text-center">
                 {{session('success')}}
             </div>
         </div>

@@ -66,7 +66,6 @@ class IndexController extends Controller
               {"nom": "Corée du Nord", "indicatif": "+850"},
               {"nom": "Corée du Sud", "indicatif": "+82"},
               {"nom": "Costa Rica", "indicatif": "+506"},
-              {"nom": "Côte d\'Ivoire", "indicatif": "+225"},
               {"nom": "Croatie", "indicatif": "+385"},
               {"nom": "Cuba", "indicatif": "+53"},
               {"nom": "Danemark", "indicatif": "+45"},
@@ -222,6 +221,11 @@ class IndexController extends Controller
         $data = json_decode($paysData, true);
         //$paysVilles = json_decode($VilleJson, true);
         //dd($VilleJson);
+
+        if (session()->has('success')) {
+            session()->put('deja_soumis', true);
+            return redirect()->route('valide')->with('deja_soumis', 'Vous avez déjà été enregistré!');
+        }
         return view('index', ['paysData' => $data['pays']]);
     }
 
@@ -232,10 +236,10 @@ class IndexController extends Controller
             "prenoms" => 'required|string',
             "sexe" => 'required',
             "idwhatsapp" => 'required',
-            "numero" => 'required|unique:users',
+            "numero" => 'required',
             "idphone" => '',
             "autre_numero" => '',
-            "email" => 'unique:users|email',
+            "email" => '',
             "pays" => 'required',
             "ville" => 'required',
             "parrain" => 'string',
@@ -247,11 +251,11 @@ class IndexController extends Controller
         ])->validate();
 
         $user = User::create([
-            'nom' => Str::title($request->input('nom')),
-            'prenoms'=> Str::lower($request->input('prenoms')),
+            'nom' => Str::upper($request->input('nom')),
+            'prenoms'=> Str::upper($request->input('prenoms')),
             'email'=> $request->input('email'),
-            'numero'=> $request->input('idwhatsapp')." ".$request->input('whatsapp'),
-            'autre_numero'=> $request->input('idphone')." ".$request->input('phone'),
+            'numero'=> $request->input('idwhatsapp')." ".$request->input('numero'),
+            'autre_numero'=> $request->input('idphone')." ".$request->input('autre_numero'),
             'pays'=> $request->input('pays'),
             'ville'=> Str::title($request->input('ville')),
             'sexe'=> $request->input('sexe'),
@@ -259,7 +263,9 @@ class IndexController extends Controller
             'electeur'=> $request->input('electeur'),
             'pdci-rda'=> $request->input('pdci'),
         ]);
-        return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré!');
+
+        session()->put('success', true);
+        return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré(e) !');
     }
 
     public function valide(){

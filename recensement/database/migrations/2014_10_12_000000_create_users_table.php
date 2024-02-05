@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenoms');
-            $table->string('numero')->unique();
+            $table->string('numero');
             $table->string('autre_numero')->nullable();
-            $table->string('email')->nullable()->unique();
+            $table->string('email')->nullable();
             $table->string('pays');
             $table->string('ville');
             $table->enum('sexe', ['Masculin', 'Feminin', 'Autre'])->default('Masculin');

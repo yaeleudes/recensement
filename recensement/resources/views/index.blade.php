@@ -13,7 +13,7 @@
     <div class="container">
         <header class="text-center">
             <img src="{{asset('assets/images/download.png')}}" alt="Logo" height="128" width="128">
-            <h1 class="text-uppercase fw-bold">Concorde national</h1>
+            <h1 class="text-uppercase fw-bold">Concorde nationale</h1>
             <p>Ce formulaire est créé pour recueillir les informations récentes sur les adhérents à Concorde Nationale
                 et mettre à jour la base de données. Merci pour votre confiance !</p>
         </header>
@@ -81,7 +81,7 @@
                     <div class="row mt-2">
                         <div class="col">
                             <select id="indicatif" class="form-select form-select-sm" name="idwhatsapp" required>
-                                <option selected value=""><span class="fs-6">Choisissez le pays</span></option>
+                                <option selected value="+255"><span class="fs-6">Côte d'ivore : +225</span></option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{$pays['indicatif']}}">{{$pays['nom']}} : {{$pays['indicatif']}}</option>
                                 @endforeach
@@ -103,7 +103,7 @@
                     <div class="row mt-2">
                         <div class="col">
                             <select class="form-select form-select-sm" name="idphone">
-                                <option selected value="">Choisissez le pays</option>
+                                <option selected value="+255"><span class="fs-6">Côte d'ivore : +225</span></option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{$pays['indicatif']}}">{{$pays['nom']}} : {{$pays['indicatif']}}</option>
                                 @endforeach
@@ -128,7 +128,7 @@
                 <div class="mb-3">
                     <label class="fw-bold mb-2">Pays de résidence <span class="text-danger">*</span></label>
                     <select class="form-select" name="pays" required>
-                        <option selected value="">Choisissez le pays</option>
+                        <option selected value="Côte d'ivore"><span class="fs-6">Côte d'ivore</span></option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{$pays['nom']}}">{{$pays['nom']}}</option>
                                 @endforeach
@@ -149,7 +149,7 @@
                     <label for="parrain" class="form-label fw-bold">Votre parrain (celui qui vous fait connaître
                         CONCORDE)
                         <span class="text-danger">*</span></label>
-                    <input type="text" name="parrain" class="form-control" id="parrain" value="Moi Même">
+                    <input type="text" name="parrain" class="form-control" id="parrain" value="Moi-même">
                     @error('parrain')
                         <div class="alert alert-danger">
                             {{$message}}

@@ -6,10 +6,17 @@ use App\Exports\ExportInfo;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class IndexController extends Controller
 {
     public function index(){
+        //$response = Http::get('https://countriesnow.space/api/v0.1/countries');
+        //$VilleJson = $response->json();
+
+
         $paysData = '
         {
             "pays": [
@@ -213,46 +220,49 @@ class IndexController extends Controller
             ]
           }';
         $data = json_decode($paysData, true);
+        //$paysVilles = json_decode($VilleJson, true);
+        //dd($VilleJson);
         return view('index', ['paysData' => $data['pays']]);
     }
 
     public function enregistrement(Request $request){
 
-        // dd($request);
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             "nom" => 'required|string',
             "prenoms" => 'required|string',
             "sexe" => 'required',
             "idwhatsapp" => 'required',
-            "whatsapp" => 'required',
+            "numero" => 'required|unique:users',
             "idphone" => '',
-            "phone" => '',
-            "email" => '',
+            "autre_numero" => '',
+            "email" => 'unique:users|email',
             "pays" => 'required',
             "ville" => 'required',
             "parrain" => 'string',
             "electeur" => 'required',
             "pdci" => 'required',
-        ]);
+        ], $messages = [
+            'required' => 'The :attribute fields is required.',
+            'unique' => 'The :attribute fields is unique',
+        ])->validate();
 
         $user = User::create([
-            'nom' => $request->input('nom'),
-            'prenoms'=> $request->input('prenoms'),
+            'nom' => Str::title($request->input('nom')),
+            'prenoms'=> Str::lower($request->input('prenoms')),
             'email'=> $request->input('email'),
             'numero'=> $request->input('idwhatsapp')." ".$request->input('whatsapp'),
             'autre_numero'=> $request->input('idphone')." ".$request->input('phone'),
             'pays'=> $request->input('pays'),
-            'ville'=> $request->input('ville'),
-            'sex'=> $request->input('sexe'),
-            'parrain'=> $request->input('parrain'),
+            'ville'=> Str::title($request->input('ville')),
+            'sexe'=> $request->input('sexe'),
+            'parrain'=> Str::title($request->input('parrain')),
             'electeur'=> $request->input('electeur'),
             'pdci-rda'=> $request->input('pdci'),
         ]);
-        // dd($user);
-        return redirect()->route('valide')->with('success', 'Merci, vous avez bien été enregistré!');
+        return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré!');
     }
-    public function exportUsersData(){
-        $fileName = 'users.xlsx';
-        return Excel::download(new ExportInfo, $fileName);
+
+    public function valide(){
+        return view('valide');
     }
 }

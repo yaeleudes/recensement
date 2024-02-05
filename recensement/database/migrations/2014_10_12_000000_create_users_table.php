@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('prenoms');
             $table->string('numero')->unique();
             $table->string('autre_numero')->nullable();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable()->unique();
             $table->string('pays');
             $table->string('ville');
-            $table->enum('sex', ['Masculin', 'Feminin', 'Autre'])->default('Masculin');
+            $table->enum('sexe', ['Masculin', 'Feminin', 'Autre'])->default('Masculin');
             $table->string('parrain');
             $table->enum('electeur', ['Oui', 'Non'])->default('Oui');
             $table->enum('pdci-rda', ['Oui', 'Non'])->default('Oui');
@@ -29,7 +29,6 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

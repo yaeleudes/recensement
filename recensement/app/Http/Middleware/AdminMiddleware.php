@@ -19,7 +19,7 @@ class AdminMiddleware
         if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->isAdmin()) {
             return $next($request);
         }
-
-        abort(403, 'Unauthorized action.');
+        return redirect()->route('admin.login');
+        //abort(403, 'Unauthorized action.');
     }
 }

@@ -24,17 +24,17 @@
                 <div class="arlet arlet-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li class="text-danger">{{$error}}</li>
+                            <li class="alert alert-danger">{{$error}}</li>
                         @endforeach
                     </ul>
                 </div>
             @endif
 
-            <form  method="POST" action="{{route('user.enregistrement')}}">
+            <form  method="POST" action="{{route('formulaire.post')}}">
                 @csrf
                 <div class="mb-3">
                     <label for="nom" class="form-label fw-bold">Nom <span class="text-danger">*</span></label>
-                    <input type="text" name="nom" class="form-control" id="nom" required>
+                    <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" required>
                     @error('nom')
                         <div class="alert alert-danger">
                             {{$message}}
@@ -44,7 +44,7 @@
 
                 <div class="mb-3">
                     <label for="prenoms" class="form-label fw-bold">Prénom(s) <span class="text-danger">*</span></label>
-                    <input type="text" name="prenoms" class="form-control" id="prenoms" required>
+                    <input type="text" name="prenoms" class="form-control" id="prenoms" placeholder="Vos Prenoms" required>
                     @error('prenoms')
                         <div class="alert alert-danger">
                             {{$message}}
@@ -80,16 +80,16 @@
                     <label class="fw-bold">Téléphone WhatsApp <span class="text-danger">*</span></label>
                     <div class="row mt-2">
                         <div class="col">
-                            <select id="indicatif" class="form-select" name="idwhatsapp" required>
-                                <option selected value="">Choisissez le pays</option>
+                            <select id="indicatif" class="form-select form-select-sm" name="idwhatsapp" required>
+                                <option selected value=""><span class="fs-6">Choisissez le pays</span></option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{$pays['indicatif']}}">{{$pays['nom']}} : {{$pays['indicatif']}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col">
-                            <input type="tel" name="whatsapp" class="form-control" placeholder="Saisissez votre numero" required>
-                            @error('whatsapp')
+                            <input type="tel" name="numero" class="form-control" placeholder="Votre numero" required>
+                            @error('numero')
                                 <div class="alert alert-danger">
                                     {{$message}}
                                 </div>
@@ -102,7 +102,7 @@
                     <label class="fw-bold">Autre téléphone</label>
                     <div class="row mt-2">
                         <div class="col">
-                            <select class="form-select" name="idphone">
+                            <select class="form-select form-select-sm" name="idphone">
                                 <option selected value="">Choisissez le pays</option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{$pays['indicatif']}}">{{$pays['nom']}} : {{$pays['indicatif']}}</option>
@@ -110,19 +110,14 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="tel" name="phone" class="form-control" placeholder="Saisissez votre numero">
-                            @error('whatsapp')
-                                <div class="alert alert-danger">
-                                    {{$message}}
-                                </div>
-                            @enderror
+                            <input type="tel" name="autre_numero" class="form-control" placeholder="Votre numero">
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">Email</label>
-                    <input type="email" name="email" class="form-control" id="email">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Votre adresse email">
                     @error('email')
                         <div class="alert alert-danger">
                             {{$message}}
@@ -142,11 +137,12 @@
 
                 <div class="mb-3">
                     <label class="fw-bold mb-2">Ville de résidence <span class="text-danger">*</span></label>
-                    <select class="form-select" name="ville" required>
+                    <input type="text" name="ville" class="form-control" id="ville" placeholder="Votre ville de résidence">
+                    {{-- <select class="form-select" name="ville" required>
                         <option selected value="Yammoussoukro">Yammoussoukro</option>
                         <option value="Abidjan">Abidjan</option>
                         <option value="Bouaké">Bouaké</option>
-                    </select>
+                    </select> --}}
                 </div>
 
                 <div class="mb-3">
@@ -197,7 +193,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Envoyer</button>
+                <button type="submit" class="btn btn-success">Envoyer</button>
             </form>
         </section>
     </div>

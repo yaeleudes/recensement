@@ -25,7 +25,7 @@ class User extends Authenticatable
         'autre_numero',
         'pays',
         'ville',
-        'sex',
+        'sexe',
         'parrain',
         'electeur',
         'pdci-rda',

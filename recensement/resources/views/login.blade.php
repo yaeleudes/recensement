@@ -48,7 +48,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Envoyer</button>
+                <button type="submit" class="btn btn-success">Envoyer</button>
             </form>
         </section>
     </div>

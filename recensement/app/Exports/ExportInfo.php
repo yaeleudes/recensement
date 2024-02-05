@@ -23,7 +23,7 @@
         }
 
         public function collection(){
-            $data = User::select('nom', 'prenoms', 'numero', 'autre_numero', 'email', 'pays', 'ville', 'sex', 'parrain', 'electeur', 'pdci-rda')->get();
+            $data = User::select('nom', 'prenoms', 'numero', 'autre_numero', 'email', 'pays', 'ville', 'sexe', 'parrain', 'electeur', 'pdci-rda')->get();
             return collect($data);
         }
-} 
+}

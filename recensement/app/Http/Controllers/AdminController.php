@@ -24,8 +24,9 @@ class AdminController extends Controller
     }
 
     public function dashboard(){
+        $users = User::orderBy('nom', 'asc')->simplePaginate(10);
         $nbrInscrit = User::count();
-        return view('dashboard', ['nbrInscrit' => $nbrInscrit]);
+        return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users]);
     }
 
     public function login(Request $request){

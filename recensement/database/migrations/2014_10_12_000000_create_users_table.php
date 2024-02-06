@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('sexe', ['Masculin', 'Feminin', 'Autre'])->default('Masculin');
             $table->string('parrain');
             $table->enum('electeur', ['Oui', 'Non'])->default('Oui');
-            $table->enum('pdci-rda', ['Oui', 'Non'])->default('Oui');
+            $table->enum('pdci_rda', ['Oui', 'Non'])->default('Oui');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

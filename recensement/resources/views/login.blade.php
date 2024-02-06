@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <header class="text-center">
-            <img src="{{asset('assets/images/download.png')}}" alt="Logo" height="128" width="128">
+            <img src="{{asset('assets/images/logo.jpg')}}" alt="Logo" height="128" width="128">
             <h1 class="text-uppercase fw-bold">Concorde nationale</h1>
             <p>Veuillez vous authentifier!</p>
         </header>

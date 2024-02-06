@@ -249,19 +249,22 @@ class IndexController extends Controller
             'required' => 'The :attribute fields is required.',
             'unique' => 'The :attribute fields is unique',
         ])->validate();
-
+        $autre_numero = $request->input('idphone')." ".$request->input('autre_numero');
+        if ($request->input('autre_numero') === NULL) {
+            $autre_numero = NULL;
+        }
         $user = User::create([
             'nom' => Str::upper($request->input('nom')),
             'prenoms'=> Str::upper($request->input('prenoms')),
             'email'=> $request->input('email'),
             'numero'=> $request->input('idwhatsapp')." ".$request->input('numero'),
-            'autre_numero'=> $request->input('idphone')." ".$request->input('autre_numero'),
+            'autre_numero'=> $autre_numero,
             'pays'=> $request->input('pays'),
             'ville'=> Str::title($request->input('ville')),
             'sexe'=> $request->input('sexe'),
             'parrain'=> Str::title($request->input('parrain')),
             'electeur'=> $request->input('electeur'),
-            'pdci-rda'=> $request->input('pdci'),
+            'pdci_rda'=> $request->input('pdci'),
         ]);
 
         session()->put('success', true);

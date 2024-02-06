@@ -22,8 +22,8 @@
     @if (session('deja_soumis'))
     <div class="row">
         <div class="col flex-column align-items-center justify-content-center">
-            <div class="alert alert-danger mx-auto text-center">
-                {{session('success')}}
+            <div class="alert alert-success mx-auto text-center">
+                <p>Vous avez déjà été enregistré!</p>
             </div>
         </div>
     </div>

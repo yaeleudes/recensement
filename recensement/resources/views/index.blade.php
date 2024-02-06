@@ -195,6 +195,26 @@
             </form>
         </section>
     </div>
+    <script>
+        document.querySelectorAll('input[type="text"]').forEach(function (input) {
+            input.addEventListener('input', function (event) {
+                let inputValue = event.target.value;
+                let regex = /^[a-zA-Z\s]*$/;
+                if (!regex.test(inputValue)) {
+                    event.target.value = inputValue.slice(0, -1);
+                }
+            });
+        });
+        document.querySelectorAll('input[type="tel"]').forEach(function (input) {
+            input.addEventListener('input', function (event) {
+                let telValue = event.target.value;
+                let regexTel = /^\d*$/;
+                if (!regexTel.test(telValue)) {
+                    event.target.value = telValue.replace(/\D/g, '');
+                }
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

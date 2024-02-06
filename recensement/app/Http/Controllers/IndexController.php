@@ -15,6 +15,9 @@ use Illuminate\Database\QueryException;
 class IndexController extends Controller
 {
     public function index(){
+        // if (Session::has('deja_soumis')) {
+        //     return redirect()->route('valide')->with('deja_soumis', 'Vous avez déjà été enregistré!');
+        // }
         //$response = Http::get('https://countriesnow.space/api/v0.1/countries');
         //$VilleJson = $response->json();
 
@@ -229,9 +232,6 @@ class IndexController extends Controller
     }
 
     public function enregistrement(Request $request){
-        if (Session::has('success')) {
-            return redirect()->route('valide')->with('deja_soumis', 'Vous avez déjà été enregistré!');
-        }
 
         try {
             $validator = Validator::make($request->all(), [
@@ -269,7 +269,7 @@ class IndexController extends Controller
                 'electeur'=> $request->input('electeur'),
                 'pdci_rda'=> $request->input('pdci'),
             ]);
-            Session::put('success', true);
+
             return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré(e) !');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
@@ -280,6 +280,8 @@ class IndexController extends Controller
     }
 
     public function valide(){
+        Session::flush();
+        Session::put('deja_soumis', true);
         return view('valide');
     }
 }

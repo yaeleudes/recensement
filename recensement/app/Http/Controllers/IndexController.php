@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Database\QueryException;
 
 class IndexController extends Controller
 {
@@ -222,53 +224,59 @@ class IndexController extends Controller
         //$paysVilles = json_decode($VilleJson, true);
         //dd($VilleJson);
 
-        if (session()->has('success')) {
-            session()->put('deja_soumis', true);
-            return redirect()->route('valide')->with('deja_soumis', 'Vous avez déjà été enregistré!');
-        }
+
         return view('index', ['paysData' => $data['pays']]);
     }
 
     public function enregistrement(Request $request){
-
-        $validator = Validator::make($request->all(), [
-            "nom" => 'required|string',
-            "prenoms" => 'required|string',
-            "sexe" => 'required',
-            "idwhatsapp" => 'required',
-            "numero" => 'required',
-            "idphone" => '',
-            "autre_numero" => '',
-            "email" => '',
-            "pays" => 'required',
-            "ville" => 'required',
-            "parrain" => 'string',
-            "electeur" => 'required',
-            "pdci" => 'required',
-        ], $messages = [
-            'required' => 'The :attribute fields is required.',
-            'unique' => 'The :attribute fields is unique',
-        ])->validate();
-        $autre_numero = $request->input('idphone')." ".$request->input('autre_numero');
-        if ($request->input('autre_numero') === NULL) {
-            $autre_numero = NULL;
+        if (Session::has('success')) {
+            return redirect()->route('valide')->with('deja_soumis', 'Vous avez déjà été enregistré!');
         }
-        $user = User::create([
-            'nom' => Str::upper($request->input('nom')),
-            'prenoms'=> Str::upper($request->input('prenoms')),
-            'email'=> $request->input('email'),
-            'numero'=> $request->input('idwhatsapp')." ".$request->input('numero'),
-            'autre_numero'=> $autre_numero,
-            'pays'=> $request->input('pays'),
-            'ville'=> Str::title($request->input('ville')),
-            'sexe'=> $request->input('sexe'),
-            'parrain'=> Str::title($request->input('parrain')),
-            'electeur'=> $request->input('electeur'),
-            'pdci_rda'=> $request->input('pdci'),
-        ]);
 
-        session()->put('success', true);
-        return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré(e) !');
+        try {
+            $validator = Validator::make($request->all(), [
+                "nom" => 'required|string|regex:/^[a-zA-Z\s]+$/',
+                "prenoms" => 'required|string|regex:/^[a-zA-Z\s]+$/',
+                "sexe" => 'required',
+                "idwhatsapp" => 'required',
+                "numero" => 'required|unique:users',
+                "idphone" => '',
+                "autre_numero" => '',
+                "email" => '',
+                "pays" => 'required',
+                "ville" => 'required',
+                "parrain" => 'string',
+                "electeur" => 'required',
+                "pdci" => 'required',
+            ], $messages = [
+                'required' => 'The :attribute fields is required.',
+                'unique' => 'The :attribute fields is unique',
+            ])->validate();
+            $autre_numero = $request->input('idphone')." ".$request->input('autre_numero');
+            if ($request->input('autre_numero') === NULL) {
+                $autre_numero = NULL;
+            }
+            $user = User::create([
+                'nom' => Str::upper($request->input('nom')),
+                'prenoms'=> Str::upper($request->input('prenoms')),
+                'email'=> $request->input('email'),
+                'numero'=> $request->input('idwhatsapp')." ".$request->input('numero'),
+                'autre_numero'=> $autre_numero,
+                'pays'=> $request->input('pays'),
+                'ville'=> Str::title($request->input('ville')),
+                'sexe'=> $request->input('sexe'),
+                'parrain'=> Str::title($request->input('parrain')),
+                'electeur'=> $request->input('electeur'),
+                'pdci_rda'=> $request->input('pdci'),
+            ]);
+            Session::put('success', true);
+            return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré(e) !');
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                return redirect()->back()->withErrors(['numero' => "Cette utilisatuer existe déjà !"]);
+            } else
+                return redirect()->back()->withErrors(['database' => "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayr."]);
+        }
     }
 
     public function valide(){

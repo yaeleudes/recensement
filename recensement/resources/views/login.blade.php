@@ -17,11 +17,11 @@
 
         <section class="p-2">
             @if ($errors->any())
-                <div class="arlet arlet-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li class="text-danger">{{$error}}</li>
-                        @endforeach
+                <div class="arlet arlet-danger text-center">
+                    <ul class="list-group">
+                        {{-- @foreach ($errors->all() as $error) --}}
+                            <li class="alert alert-danger text-center list-group-item list-group-item-danger">{{$error}}</li>
+                        {{-- @endforeach --}}
                     </ul>
                 </div>
             @endif
@@ -31,21 +31,11 @@
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">Email</label>
                     <input type="email" name="email" class="form-control" id="email" required>
-                    @error('email')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label fw-bold">Mot de Passe</label>
                     <input type="password" name="password" class="form-control" id="password" required>
-                    @error('password')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
                 </div>
 
                 <button type="submit" class="btn btn-success">Envoyer</button>

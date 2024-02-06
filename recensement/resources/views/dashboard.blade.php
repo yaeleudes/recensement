@@ -29,7 +29,7 @@
                             <a href="{{route('admin.logout')}}" class="btn btn-danger">Déconnexion</a>
                         </div>
                         <form class="col-6 d-flex justify-content-end">
-                            <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search">
+                            <input class="form-control me-2" type="search" name="recherche" placeholder="Rechercher" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Rechercher</button>
                         </form>
                     </div>
@@ -37,7 +37,7 @@
             </div>
         </section>
 
-        <section class="flex-column justify-content-center">
+        <section class="flex-column justify-content-center p-2 rounded">
             <h1 class="text-center">Liste des inscrits</h1>
 
                 <table class="table">

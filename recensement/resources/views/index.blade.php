@@ -22,10 +22,8 @@
 
             @if ($errors->any())
                 <div class="arlet arlet-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li class="alert alert-danger">{{$error}}</li>
-                        @endforeach
+                    <ul class="list-group">
+                        <li class="alert alert-danger text-center list-group-item list-group-item-danger"><p>Merci de vérifier attentivement vos informations.</p></li>
                     </ul>
                 </div>
             @endif
@@ -34,7 +32,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="nom" class="form-label fw-bold">Nom <span class="text-danger">*</span></label>
-                    <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" required>
+                    <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" value="{{old('nom')}}" required>
                     @error('nom')
                         <div class="alert alert-danger">
                             {{$message}}
@@ -44,7 +42,7 @@
 
                 <div class="mb-3">
                     <label for="prenoms" class="form-label fw-bold">Prénom(s) <span class="text-danger">*</span></label>
-                    <input type="text" name="prenoms" class="form-control" id="prenoms" placeholder="Vos Prenoms" required>
+                    <input type="text" name="prenoms" class="form-control" id="prenoms" placeholder="Vos Prenoms" value="{{old('prenoms')}}" required>
                     @error('prenoms')
                         <div class="alert alert-danger">
                             {{$message}}
@@ -56,19 +54,19 @@
                     <label class="fw-bold">Sexe <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sexe" value="Masculin" id="M" checked>
+                            <input class="form-check-input" type="radio" name="sexe" value="Masculin" value="{{old('sexe')}}" id="M" checked>
                             <label class="form-check-label" for="M">
                                 Masculin
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sexe" value="Feminin" id="F">
+                            <input class="form-check-input" type="radio" name="sexe" value="Feminin" value="{{old('sexe')}}" id="F">
                             <label class="form-check-label" for="F">
                                 Féminin
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sexe" value="Autre" id="A">
+                            <input class="form-check-input" type="radio" name="sexe" value="Autre" value="{{old('sexe')}}" id="A">
                             <label class="form-check-label" for="A">
                                 Autre
                             </label>
@@ -88,10 +86,10 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="tel" name="numero" class="form-control" placeholder="Votre numero" required>
+                            <input type="tel" name="numero" class="form-control" placeholder="Votre numero" value="{{old('numero')}}" required>
                             @error('numero')
                                 <div class="alert alert-danger">
-                                    {{$message}}
+                                    <p>Merci de vérifier attentivement vos informations.</p>
                                 </div>
                             @enderror
                         </div>
@@ -110,14 +108,14 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="tel" name="autre_numero" class="form-control" placeholder="Votre numero">
+                            <input type="tel" name="autre_numero" class="form-control" placeholder="Votre numero" value="{{old('autre_numero')}}">
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="Votre adresse email">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Votre adresse email" value="{{old('email')}}">
                     @error('email')
                         <div class="alert alert-danger">
                             {{$message}}
@@ -137,7 +135,7 @@
 
                 <div class="mb-3">
                     <label class="fw-bold mb-2">Ville de résidence <span class="text-danger">*</span></label>
-                    <input type="text" name="ville" class="form-control" id="ville" placeholder="Votre ville de résidence">
+                    <input type="text" name="ville" class="form-control" id="ville" placeholder="Votre ville de résidence" value="{{old('ville')}}">
                     {{-- <select class="form-select" name="ville" required>
                         <option selected value="Yammoussoukro">Yammoussoukro</option>
                         <option value="Abidjan">Abidjan</option>
@@ -149,7 +147,7 @@
                     <label for="parrain" class="form-label fw-bold">Votre parrain (celui qui vous fait connaître
                         CONCORDE)
                         <span class="text-danger">*</span></label>
-                    <input type="text" name="parrain" class="form-control" id="parrain" value="Moi-même">
+                    <input type="text" name="parrain" class="form-control" id="parrain" value="Moi-même" value="{{old('parrain')}}">
                     @error('parrain')
                         <div class="alert alert-danger">
                             {{$message}}

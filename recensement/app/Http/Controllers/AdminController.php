@@ -23,9 +23,16 @@ class AdminController extends Controller
         return view('login');
     }
 
-    public function dashboard(){
-        $users = User::orderBy('nom', 'asc')->simplePaginate(10);
+    public function dashboard(Request $request){
         $nbrInscrit = User::count();
+        $recherche = $request->input('recherche');
+        if (!($recherche === NULL)) {
+            $users = User::where('nom', 'like', '%'.$recherche.'%')->orderBy('nom', 'asc')->simplePaginate(10);
+            return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users]);
+        }
+
+        $users = User::orderBy('nom', 'asc')->simplePaginate(10);
+
         return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users]);
     }
 
@@ -35,7 +42,7 @@ class AdminController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->route('admin.dashboard');
         }
-        return redirect()->back()->withErrors(['email' => 'These credentials do not match our records.'])->withInput();
+        return redirect()->back()->withErrors(['email' => 'Aucun compte trouvé !'])->withInput();
     }
 
     public function logout(){

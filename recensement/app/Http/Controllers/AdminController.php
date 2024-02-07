@@ -25,15 +25,15 @@ class AdminController extends Controller
 
     public function dashboard(Request $request){
         $nbrInscrit = User::count();
+        $users = User::orderBy('nom', 'asc')->simplePaginate(10);
+        $nbrH = User::where('sexe', '=', 'Masculin')->count();
+        $nbrF = User::where('sexe', '=', 'Feminin')->count();
         $recherche = $request->input('recherche');
         if (!($recherche === NULL)) {
             $users = User::where('nom', 'like', '%'.$recherche.'%')->orderBy('nom', 'asc')->simplePaginate(10);
-            return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users]);
+            return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF]);
         }
-
-        $users = User::orderBy('nom', 'asc')->simplePaginate(10);
-
-        return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users]);
+        return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF]);
     }
 
     public function login(Request $request){
@@ -48,6 +48,11 @@ class AdminController extends Controller
     public function logout(){
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login')->with('alert', 'Au-revoir!');
+    }
+
+    public function destroy($id){
+        User::findOrFail($id)->delete();
+        return redirect()->route('admin.dashboard')->with('success', "Utilisateur supprimée avec succès.");
     }
 
     public function exportUsersData(){

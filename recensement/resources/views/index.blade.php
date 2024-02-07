@@ -7,6 +7,7 @@
     <title>Concorde | formulaire</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
@@ -15,7 +16,7 @@
             <img src="{{asset('assets/images/logo.jpg')}}" alt="Logo" height="128" width="128">
             <h1 class="text-uppercase fw-bold">Concorde nationale</h1>
             <p>Ce formulaire est créé pour recueillir les informations récentes sur les adhérents à Concorde Nationale
-                et mettre à jour la base de données. Merci pour votre confiance !</p>
+                et mettre à jour la base de données. Merci de votre participation !</p>
         </header>
         <section class="p-2">
             <p class="text-danger">* Indique une question obligatoire</p>
@@ -191,7 +192,8 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success">Envoyer</button>
+                <p class="text-danger fs-5"><i class="bi bi-exclamation-triangle-fill fw-bold"> </i> Merci de vérifier les informations saisies avant de cliquer sur <span class="fw-bold">Envoyer</span> pour éviter les erreurs. </p>
+                <button type="submit" class="btn btn-success px-4">Envoyer</button>
             </form>
         </section>
     </div>

@@ -13,7 +13,7 @@
     <div class="col flex-column align-items-center justify-content-center">
         <div class="alert alert-success mx-auto text-center">
 
-            <p>Merci, vous avez été bien enregistré(e) !</p>
+            <p>Merci, vous avez été déjà enregistré(e) !</p>
         </div>
     </div>
 

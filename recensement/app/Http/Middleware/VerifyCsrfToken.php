@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Closure;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
 class VerifyCsrfToken extends Middleware
@@ -14,4 +15,12 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
     ];
+
+    public function handle($request, Closure $next){
+        try {
+            return parent::handle($request, $next);
+        } catch (TokenMismatchException $exception) {
+            return response()->view('valideok');
+        }
+    }
 }

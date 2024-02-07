@@ -19,9 +19,9 @@
             @if ($errors->any())
                 <div class="arlet arlet-danger text-center">
                     <ul class="list-group">
-                        {{-- @foreach ($errors->all() as $error) --}}
+                        @foreach ($errors->all() as $error)
                             <li class="alert alert-danger text-center list-group-item list-group-item-danger">{{$error}}</li>
-                        {{-- @endforeach --}}
+                        @endforeach
                     </ul>
                 </div>
             @endif
@@ -38,7 +38,7 @@
                     <input type="password" name="password" class="form-control" id="password" required>
                 </div>
 
-                <button type="submit" class="btn btn-success">Envoyer</button>
+                <button type="submit" class="btn btn-success px-5">Envoyer</button>
             </form>
         </section>
     </div>

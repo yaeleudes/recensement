@@ -30,6 +30,7 @@ Route::prefix('concorde/admin')->group(function(){
     Route::get('/login', [AdminController::class, 'index'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'login'])->name('login');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:admin');
+    Route::delete('/dashboard/{id}', [AdminController::class, 'destroy'])->name('admin.destroy')->middleware('auth:admin');
     Route::get('/export', [AdminController::class, 'exportUsersData'])->name('admin.export-data')->middleware('auth:admin');
     Route::get('/logout', [AdminController::class,'logout'])->name('admin.logout')->middleware('auth:admin');
 });

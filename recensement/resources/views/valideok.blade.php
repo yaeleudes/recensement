@@ -11,9 +11,9 @@
     <img src="{{asset('assets/images/logo.jpg')}}" alt="Logo" height="128" width="128">
     <h1 class="text-uppercase fw-bold">Concorde nationale</h1>
     <div class="col flex-column align-items-center justify-content-center">
-        <div class="alert alert-success mx-auto text-center">
+        <div class="alert alert-warning mx-auto text-center">
 
-            <p>Merci, vous avez été déjà enregistré(e) !</p>
+            <p>Vous avez été déjà enregistré(e) !</p>
         </div>
     </div>
 

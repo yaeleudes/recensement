@@ -4,17 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AdminController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return redirect()->route('formulaire');
 });
@@ -24,7 +13,6 @@ Route::prefix('concorde')->group(function(){
     Route::post('/formulaire', [IndexController::class,'enregistrement'])->name('formulaire.post');
     Route::get('/formulaire/valide', [IndexController::class, 'valide'])->name('valide');
 });
-
 //Admin's Routes
 Route::prefix('concorde/admin')->group(function(){
     Route::get('/login', [AdminController::class, 'index'])->name('admin.login');

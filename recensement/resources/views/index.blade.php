@@ -167,7 +167,7 @@
                         <option value="Yammoussoukro">Yammoussoukro</option>
                     </select>
                     <input type="text" name="ville" class="form-control" id="autreVille"
-                        placeholder="Votre ville de résidence" value="{{ old('ville') }}" style="display:none;">
+                        placeholder="Votre ville de résidence" value="" style="display:none;">
                 </div>
 
                 <div class="mb-3">

@@ -16,13 +16,8 @@ class IndexController extends Controller
 {
     public function index(){
         if (Session::has('deja_soumis')) {
-            // return redirect()->route('valide')->with('deja_soumis', 'Vous avez déjà été enregistré!');
             return view('valideok');
         }
-        //$response = Http::get('https://countriesnow.space/api/v0.1/countries');
-        //$VilleJson = $response->json();
-
-
         $paysData = '
         {
             "pays": [
@@ -225,15 +220,10 @@ class IndexController extends Controller
             ]
           }';
         $data = json_decode($paysData, true);
-        //$paysVilles = json_decode($VilleJson, true);
-        //dd($VilleJson);
-
-
         return view('index', ['paysData' => $data['pays']]);
     }
 
     public function enregistrement(Request $request){
-
         try {
             $validator = Validator::make($request->all(), [
                 "nom" => 'required|string|regex:/^[a-zA-Z\s]+$/',
@@ -245,7 +235,8 @@ class IndexController extends Controller
                 "autre_numero" => '',
                 "email" => '',
                 "pays" => 'required',
-                "ville" => 'required',
+                "ville" => 'required_without:ville_input',
+                "ville_input" => '',
                 "parrain" => 'string',
                 "electeur" => 'required',
                 "pdci" => 'required',
@@ -257,6 +248,12 @@ class IndexController extends Controller
             if ($request->input('autre_numero') === NULL) {
                 $autre_numero = NULL;
             }
+            $ville = " ";
+            if ($request->input('ville_input') === NULL) {
+                $ville = $request->input('ville');
+            } else {
+                $ville = $request->input('ville_input');
+            }
             $user = User::create([
                 'nom' => Str::upper($request->input('nom')),
                 'prenoms'=> Str::upper($request->input('prenoms')),
@@ -265,6 +262,7 @@ class IndexController extends Controller
                 'autre_numero'=> $autre_numero,
                 'pays'=> $request->input('pays'),
                 'ville'=> Str::title($request->input('ville')),
+                'ville'=> Str::title($ville),
                 'sexe'=> $request->input('sexe'),
                 'parrain'=> Str::title($request->input('parrain')),
                 'electeur'=> $request->input('electeur'),
@@ -279,7 +277,7 @@ class IndexController extends Controller
                 return redirect()->back()->withErrors(['database' => "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayr."]);
         }
     }
-
+    
     public function valide(){
         Session::flush();
         Session::put('deja_soumis', true);

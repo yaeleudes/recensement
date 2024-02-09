@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concorde | formulaire</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-
 <body>
     <div class="container">
         <header class="text-center">
@@ -20,7 +17,6 @@
         </header>
         <section class="p-2">
             <p class="text-danger">* Indique une question obligatoire</p>
-
             @if ($errors->any())
                 <div class="arlet arlet-danger">
                     <ul class="list-group">
@@ -30,32 +26,27 @@
                     </ul>
                 </div>
             @endif
-
             <form method="POST" action="{{ route('formulaire.post') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="nom" class="form-label fw-bold">Nom <span class="text-danger">*</span></label>
-                    <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom"
-                        value="{{ old('nom') }}" required>
+                    <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" value="{{ old('nom') }}" required>
                     @error('nom')
                         <div class="alert alert-danger">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-
                 <div class="mb-3">
                     <label for="prenoms" class="form-label fw-bold">Prénom(s) <span
                             class="text-danger">*</span></label>
-                    <input type="text" name="prenoms" class="form-control" id="prenoms" placeholder="Vos Prenoms"
-                        value="{{ old('prenoms') }}" required>
+                    <input type="text" name="prenoms" class="form-control" id="prenoms" placeholder="Vos Prenoms" value="{{ old('prenoms') }}" required>
                     @error('prenoms')
                         <div class="alert alert-danger">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-
                 <div class="mb-3">
                     <label class="fw-bold">Sexe <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
@@ -82,7 +73,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <label class="fw-bold">Téléphone WhatsApp <span class="text-danger">*</span></label>
                     <div class="row mt-2">
@@ -96,8 +86,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="tel" name="numero" class="form-control" placeholder="Votre numero"
-                                value="{{ old('numero') }}" required>
+                            <input type="tel" name="numero" class="form-control" placeholder="Votre numero" value="{{ old('numero') }}" required>
                             @error('numero')
                                 <div class="alert alert-danger">
                                     <p>Merci de vérifier attentivement vos informations.</p>
@@ -106,7 +95,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <label class="fw-bold">Autre téléphone</label>
                     <div class="row mt-2">
@@ -121,12 +109,10 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="tel" name="autre_numero" class="form-control"
-                                placeholder="Votre numero" value="{{ old('autre_numero') }}">
+                            <input type="tel" name="autre_numero" class="form-control" placeholder="Votre numero" value="{{ old('autre_numero') }}">
                         </div>
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">Email</label>
                     <input type="email" name="email" class="form-control" id="email"
@@ -137,7 +123,6 @@
                         </div>
                     @enderror
                 </div>
-
                 <div class="mb-3">
                     <label class="fw-bold mb-2">Pays de résidence <span class="text-danger">*</span></label>
                     <select class="form-select" name="pays" id="pays" onchange="changerChamps()" required>
@@ -147,7 +132,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="mb-3">
                     <label class="fw-bold mb-2">Ville de résidence <span class="text-danger">*</span></label>
                     <select class="form-select" name="ville" id="ville" required>
@@ -166,10 +150,13 @@
                         <option value="Séguéla">Séguéla</option>
                         <option value="Yammoussoukro">Yammoussoukro</option>
                     </select>
-                    <input type="text" name="ville" class="form-control" id="autreVille"
-                        placeholder="Votre ville de résidence" value="" style="display:none;">
+                    <input type="text" name="ville_input" class="form-control" id="autreVille"placeholder="Votre ville de résidence" value="{{ old('ville_input') }}" style="display:none;">
+                    @error('ville')
+                        <div class="alert alert-danger">
+                            <p>Merci de vérifier attentivement vos informations.</p>
+                        </div>
+                    @enderror
                 </div>
-
                 <div class="mb-3">
                     <label for="parrain" class="form-label fw-bold">Votre parrain (celui qui vous fait connaître
                         CONCORDE)
@@ -182,7 +169,6 @@
                         </div>
                     @enderror
                 </div>
-
                 <div class="mb-3">
                     <label class="fw-bold">Etes-vous électeur ? <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
@@ -202,7 +188,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <label class="fw-bold">Etes-vous du PDCI-RDA ? <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
@@ -222,7 +207,6 @@
                         </div>
                     </div>
                 </div>
-
                 <p class="text-danger fs-5"><i class="bi bi-exclamation-triangle-fill fw-bold"> </i> Merci de vérifier
                     les informations saisies avant de cliquer sur <span class="fw-bold">Envoyer</span> pour éviter les
                     erreurs. </p>
@@ -244,9 +228,7 @@
                 inputAutreVille.style.display = "inline";
             }
         }
-
         changerChamps();
-
         document.querySelectorAll('input[type="text"]').forEach(function(input) {
             input.addEventListener('input', function(event) {
                 let inputValue = event.target.value;
@@ -266,9 +248,6 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-
 </html>

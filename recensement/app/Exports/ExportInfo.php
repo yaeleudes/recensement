@@ -18,12 +18,13 @@
             "Sexe",
             "Parrain",
             "Electeur",
+            "Date d'inscrtion",
             "PDCI-RDA"
             ];
         }
 
         public function collection(){
-            $data = User::select('nom', 'prenoms', 'numero', 'autre_numero', 'email', 'pays', 'ville', 'sexe', 'parrain', 'electeur', 'pdci_rda')->get();
+            $data = User::select('nom', 'prenoms', 'numero', 'autre_numero', 'email', 'pays', 'ville', 'sexe', 'parrain', 'electeur','created_at', 'pdci_rda')->get();
             return collect($data);
         }
 }

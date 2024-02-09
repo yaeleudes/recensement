@@ -74,6 +74,7 @@
                             <th scope="col">Parrain</th>
                             <th scope="col">Electeur</th>
                             <th scope="col">PDCI-RDA</th>
+                            <th scope="col">Date d'inscrtion</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -91,6 +92,7 @@
                                 <td>{{$user->parrain}}</td>
                                 <td>{{$user->electeur}}</td>
                                 <td>{{$user->pdci_rda}}</td>
+                                <td>{{$user->created_at->format('d-m-Y')}}</td>
                                 <td>
                                     <form action="{{ route('admin.destroy', $user->id) }}" method="POST">
                                         @csrf

@@ -26,6 +26,7 @@ class AdminController extends Controller
     public function dashboard(Request $request){
         $nbrInscrit = User::count();
         $users = User::orderBy('nom', 'asc')->simplePaginate(10);
+        $usersArchive = User::where('archive', '=', 'Oui')->orderBy('nom', 'asc')->simplePaginate(10);
         $nbrH = User::where('sexe', '=', 'Masculin')->count();
         $nbrF = User::where('sexe', '=', 'Feminin')->count();
         $recherche = $request->input('recherche');
@@ -35,7 +36,6 @@ class AdminController extends Controller
         }
         return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF]);
     }
-
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
 
@@ -44,17 +44,28 @@ class AdminController extends Controller
         }
         return redirect()->back()->withErrors(['email' => 'Aucun compte trouvé !'])->withInput();
     }
-
     public function logout(){
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login')->with('alert', 'Au-revoir!');
     }
-
     public function destroy($id){
         User::findOrFail($id)->delete();
-        return redirect()->route('admin.dashboard')->with('success', "Utilisateur supprimée avec succès.");
+        return redirect()->route('admin.dashboard')->with('success', "Utilisateur supprimé avec succès.");
     }
-
+    public function archive($id){
+        $user = User::findOrFail($id);
+        $user->archive = 'Oui';
+        $user->save();
+        // $user->update(['archive' => 'Oui']);
+        return redirect()->route('admin.dashboard')->with('success', "Utilisateur archivé avec succès.");
+    }
+    public function restore($id){
+        $user = User::findOrFail($id);
+        $user->archive = 'Non';
+        $user->save();
+        // $user->update(['archive' => 'Non']);
+        return redirect()->route('admin.dashboard')->with('success', "Utilisateur restoré avec succès.");
+    }
     public function exportUsersData(){
         $fileName = 'base-de-données.xlsx';
         return Excel::download(new ExportInfo, $fileName);

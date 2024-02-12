@@ -20,10 +20,14 @@
             @if ($errors->any())
                 <div class="arlet arlet-danger">
                     <ul class="list-group">
-                        <li class="alert alert-danger text-center list-group-item list-group-item-danger">
-                            <p>Merci de vérifier attentivement vos informations.</p>
-                        </li>
+                        @foreach ( $errors->all() as $error )
+                            <li class="alert alert-danger text-center list-group-item list-group-item-danger">
+                                {{ $error }}
+                            </li>
+                        @endforeach
                     </ul>
+
+
                 </div>
             @endif
             <form method="POST" action="{{ route('formulaire.post') }}">
@@ -89,7 +93,7 @@
                             <input type="tel" name="numero" class="form-control" placeholder="Votre numero" value="{{ old('numero') }}" required>
                             @error('numero')
                                 <div class="alert alert-danger">
-                                    <p>Merci de vérifier attentivement vos informations.</p>
+                                    {{ $message }}
                                 </div>
                             @enderror
                         </div>
@@ -153,7 +157,7 @@
                     <input type="text" name="ville_input" class="form-control" id="autreVille"placeholder="Votre ville de résidence" value="{{ old('ville_input') }}" style="display:none;">
                     @error('ville')
                         <div class="alert alert-danger">
-                            <p>Merci de vérifier attentivement vos informations.</p>
+                            {{ $message }}
                         </div>
                     @enderror
                 </div>
@@ -232,7 +236,7 @@
         document.querySelectorAll('input[type="text"]').forEach(function(input) {
             input.addEventListener('input', function(event) {
                 let inputValue = event.target.value;
-                let regex = /^[a-zA-Z\s]*$/;
+                let regex = /^[a-zA-Z\s']*$/;
                 if (!regex.test(inputValue)) {
                     event.target.value = inputValue.slice(0, -1);
                 }

@@ -56,10 +56,9 @@
                 </div>
             </div>
         </section>
-
+        {{-- Section Tableau --}}
         <section class="flex-column justify-content-center p-2 rounded">
             <h1 class="text-center">Liste des inscrits</h1>
-
                 <table class="table">
                     <thead>
                         <tr class="table-success">
@@ -75,17 +74,18 @@
                             <th scope="col">Electeur</th>
                             <th scope="col">PDCI-RDA</th>
                             <th scope="col">Date d'inscrtion</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="">
                         @foreach ($users as $user)
                             <tr class="">
-                                <td scope="row">{{$user->nom}}</td>
+                                <td scope="row">
+                                    {{$user->nom}}
+                                </td>
                                 <td>{{$user->prenoms}}</td>
                                 <td>{{$user->sexe}}</td>
                                 <td>{{$user->numero}}</td>
-                                {{-- <td>{{$user->autre_numero}}</td> --}}
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->pays}}</td>
                                 <td>{{$user->ville}}</td>
@@ -93,12 +93,78 @@
                                 <td>{{$user->electeur}}</td>
                                 <td>{{$user->pdci_rda}}</td>
                                 <td>{{$user->created_at->format('d-m-Y')}}</td>
-                                <td>
-                                    <form action="{{ route('admin.destroy', $user->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Supprimer</button>
-                                    </form>
+                                <td class="row d-flex justify-content-between">
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5 class="text-center">Voullez-vous vraiment supprimer cet utilisateur ?</h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('admin.destroy', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-success">Je confirme</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal 2 -->
+                                    <div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabe2" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5 class="text-center">Voullez-vous vraiment archiver cet utilisateur ?</h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('admin.archive', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-success">Je confirme</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal 3 -->
+                                    <div class="modal fade" id="exampleModa3" tabindex="-1" aria-labelledby="exampleModalLabe3" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5 class="text-center">Voullez-vous vraiment restorer cet utilisateur ?</h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route("admin.restore", $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-success">Je confirme</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        @if ($user->archive === 'Non')
+                                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModa2"><i class="bi bi-box-arrow-down"></i></button>
+                                        @else
+                                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModa3"><i class="bi bi-box-arrow-up"></i></button>
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-trash"></i></button>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

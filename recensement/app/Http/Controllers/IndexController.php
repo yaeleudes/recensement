@@ -15,9 +15,9 @@ use Illuminate\Database\QueryException;
 class IndexController extends Controller
 {
     public function index(){
-        if (Session::has('deja_soumis')) {
-            return view('valideok');
-        }
+        // if (Session::has('deja_soumis')) {
+        //     return view('valideok');
+        // }
         $paysData = '
         {
             "pays": [
@@ -226,8 +226,8 @@ class IndexController extends Controller
     public function enregistrement(Request $request){
         try {
             $validator = Validator::make($request->all(), [
-                "nom" => 'required|string|regex:/^[a-zA-Z\s]+$/',
-                "prenoms" => 'required|string|regex:/^[a-zA-Z\s]+$/',
+                "nom" => "required|string|regex:/^[a-zA-Z\s']+$/",
+                "prenoms" => "required|string|regex:/^[a-zA-Z\s']+$/",
                 "sexe" => 'required',
                 "idwhatsapp" => 'required',
                 "numero" => 'required|unique:users',
@@ -268,7 +268,7 @@ class IndexController extends Controller
                 'electeur'=> $request->input('electeur'),
                 'pdci_rda'=> $request->input('pdci'),
             ]);
-            Session::put('success', true);
+            // Session::put('success', true);
             return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré(e) !');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
@@ -277,7 +277,7 @@ class IndexController extends Controller
                 return redirect()->back()->withErrors(['database' => "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayr."]);
         }
     }
-    
+
     public function valide(){
         Session::flush();
         Session::put('deja_soumis', true);

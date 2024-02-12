@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('parrain');
             $table->enum('electeur', ['Oui', 'Non'])->default('Oui');
             $table->enum('pdci_rda', ['Oui', 'Non'])->default('Oui');
+            $table->enum('archive', ['Oui', 'Non'])->default('Non');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

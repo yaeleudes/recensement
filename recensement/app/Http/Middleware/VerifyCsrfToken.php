@@ -16,11 +16,11 @@ class VerifyCsrfToken extends Middleware
         //
     ];
 
-    public function handle($request, Closure $next){
-        try {
-            return parent::handle($request, $next);
-        } catch (TokenMismatchException $exception) {
-            return response()->view('valideok');
-        }
-    }
+    // public function handle($request, Closure $next){
+    //     try {
+    //         return parent::handle($request, $next);
+    //     } catch (TokenMismatchException $exception) {
+    //         return response()->view('valideok');
+    //     }
+    // }
 }

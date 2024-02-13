@@ -20,7 +20,7 @@
                 <div class="row d-flex justify-content-end align-items-center">
                     <div class="col-12 d-flex row p-3 justify-content-end">
                         <div class="col-4 d-flex justify-content-end">
-                            <a href="{{route('admin.dashboard')}}" class="btn btn-success px-4"><i class="bi bi-download fw-bold"> </i> Retour</a>
+                            <a href="{{route('admin.dashboard')}}" class="btn btn-success px-4"><i class="bi bi-box-arrow-left fw-bold"> </i> Retour</a>
                         </div>
                         <form class="col-6 d-flex justify-content-end">
                             <input class="form-control me-2" type="search" name="recherche" placeholder="Rechercher" aria-label="Search">
@@ -127,7 +127,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <h5 class="text-center">Voullez-vous vraiment restorer cet utilisateur ?</h5>
+                                                    <h5 class="text-center">Voullez-vous vraiment restaurer cet utilisateur ?</h5>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="{{ route("admin.restore", $user->id) }}" method="POST">

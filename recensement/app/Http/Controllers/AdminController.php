@@ -25,7 +25,8 @@ class AdminController extends Controller
 
     public function dashboard(Request $request){
         $nbrInscrit = User::count();
-        $users = User::orderBy('nom', 'asc')->simplePaginate(10);
+        $nbrArchive = User::where('archive', '=', 'Oui')->count();
+        $users = User::where('archive', '=', 'Non')->orderBy('nom', 'asc')->simplePaginate(10);
         $nbrH = User::where('sexe', '=', 'Masculin')->count();
         $nbrF = User::where('sexe', '=', 'Feminin')->count();
         $recherche = $request->input('recherche');
@@ -37,9 +38,9 @@ class AdminController extends Controller
                 $users = User::where('nom', 'like', '%'.$nom.'%')->orWhere('prenoms', 'like', '%'.$prenoms.'%')->orderBy('nom', 'asc')->simplePaginate(10);
             }
             $users = User::where('nom', 'like', '%'.$nom.'%')->orderBy('nom', 'asc')->simplePaginate(10);
-            return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF]);
+            return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF, 'nbrArchive' => $nbrArchive]);
         }
-        return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF]);
+        return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF, 'nbrArchive' => $nbrArchive]);
     }
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
@@ -68,7 +69,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->archive = 'Non';
         $user->save();
-        return redirect()->route('admin.dashboard')->with('success', "Utilisateur restoré avec succès.");
+        return redirect()->route('admin.dashboard')->with('success', "Utilisateur restauré avec succès.");
     }
     public function archivage(){
         $usersArchive = User::where('archive', '=', 'Oui')->orderBy('nom', 'asc')->simplePaginate(10);

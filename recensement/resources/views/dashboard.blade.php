@@ -6,7 +6,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        {{-- <link rel="stylesheet" href="{{asset('assets/css/pagination.css')}}"> --}}
     <title>Admin | Dashboard</title>
 </head>
 <body>
@@ -43,17 +42,22 @@
             </div>
         @endif
         <section class="row d-flex justify-content-between my-4">
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center">
                 <div class="col-5 p-2 bg-success rounded text-center">
                     <p class="m-0 text-white fw-bold px-2"> <i class="bi bi-people fw-bold"> </i> Inscrits : {{ $nbrInscrit }}</p>
                 </div>
             </div>
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center">
+                <div class="col-5 p-2 bg-success rounded text-center">
+                    <p class="m-0 text-white fw-bold px-2"> <i class="bi bi-box-arrow-down fw-bold"> </i> Archivés : {{ $nbrArchive }}</p>
+                </div>
+            </div>
+            <div class="col-3 d-flex justify-content-center">
                 <div class="col-5 p-2 bg-success rounded text-center">
                     <p class="m-0 text-white fw-bold px-2"> <i class="bi bi-gender-male fw-bold"> </i>Hommes : {{$nbrH}}</p>
                 </div>
             </div>
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center">
                 <div class="col-5 p-2 bg-success rounded text-center">
                     <p class="m-0 text-white fw-bold px-2"> <i class="bi bi-gender-female fw-bold"> </i> Femmes : {{$nbrF}}</p>
                 </div>

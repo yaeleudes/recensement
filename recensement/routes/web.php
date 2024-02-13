@@ -17,6 +17,7 @@ Route::prefix('concorde/admin')->group(function(){
     Route::get('/login', [AdminController::class, 'index'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'login'])->name('login');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:admin');
+    Route::get('/archivage', [AdminController::class, 'archivage'])->name('admin.archivage')->middleware('auth:admin');
     Route::delete('/dashboard/{id}/supprime', [AdminController::class, 'destroy'])->name('admin.destroy')->middleware('auth:admin');
     Route::put('/dashboard/{id}/archive', [AdminController::class, 'archive'])->name('admin.archive')->middleware('auth:admin');
     Route::put('/dashboard/{id}/restore', [AdminController::class, 'restore'])->name('admin.restore')->middleware('auth:admin');

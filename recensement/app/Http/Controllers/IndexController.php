@@ -235,8 +235,9 @@ class IndexController extends Controller
                 "autre_numero" => '',
                 "email" => '',
                 "pays" => 'required',
-                "ville" => 'required_without:ville_input',
-                "ville_input" => '',
+                "chef_lieu" => 'required_without:ville_input',
+                "ville_residence" => 'required_without:ville_input',
+                "ville_input" => 'required_without:ville_residence',
                 "parrain" => 'string',
                 "electeur" => 'required',
                 "pdci" => 'required',
@@ -248,27 +249,37 @@ class IndexController extends Controller
             if ($request->input('autre_numero') === NULL) {
                 $autre_numero = NULL;
             }
+            $chef_lieu = " ";
             $ville = " ";
+            $email = " ";
+            if ($request->input('email') === NULL) {
+                $email = "Neant";
+            } else {
+                $email = $request->input('email');
+            }
+
             if ($request->input('ville_input') === NULL) {
-                $ville = $request->input('ville');
+                $ville = $request->input('ville_residence');
+                $chef_lieu = $request->input('chef_lieu');
             } else {
                 $ville = $request->input('ville_input');
+                //$chef_lieu = "Neant";
             }
             $user = User::create([
                 'nom' => Str::upper($request->input('nom')),
                 'prenoms'=> Str::upper($request->input('prenoms')),
-                'email'=> $request->input('email'),
+                'email'=> $email,
                 'numero'=> $request->input('idwhatsapp')." ".$request->input('numero'),
                 'autre_numero'=> $autre_numero,
                 'pays'=> $request->input('pays'),
-                'ville'=> Str::title($request->input('ville')),
-                'ville'=> Str::title($ville),
+                'ville_residence'=> Str::title($ville),
+                'chef_lieu'=> Str::title($chef_lieu),
                 'sexe'=> $request->input('sexe'),
                 'parrain'=> Str::title($request->input('parrain')),
                 'electeur'=> $request->input('electeur'),
                 'pdci_rda'=> $request->input('pdci'),
             ]);
-            // Session::put('success', true);
+            Session::put('success', true);
             return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré(e) !');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
@@ -277,7 +288,6 @@ class IndexController extends Controller
                 return redirect()->back()->withErrors(['database' => "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayr."]);
         }
     }
-
     public function valide(){
         Session::flush();
         Session::put('deja_soumis', true);

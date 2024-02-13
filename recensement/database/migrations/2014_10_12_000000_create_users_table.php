@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('autre_numero')->nullable();
             $table->string('email')->nullable();
             $table->string('pays');
-            $table->string('ville');
+            $table->string('chef_lieu');
+            $table->string('ville_residence');
             $table->enum('sexe', ['Masculin', 'Feminin', 'Autre'])->default('Masculin');
             $table->string('parrain');
             $table->enum('electeur', ['Oui', 'Non'])->default('Oui');

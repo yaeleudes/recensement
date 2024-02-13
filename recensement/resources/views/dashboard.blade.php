@@ -20,9 +20,12 @@
                 <div class="row d-flex justify-content-end align-items-center">
                     <div class="col-12 d-flex row p-3 justify-content-end">
                         <div class="col-4 d-flex justify-content-end">
+                            <a href="{{route('admin.archivage')}}" class="btn btn-success px-4"><i class="bi bi-box-arrow-down fw-bold"> </i> Archivage</a>
+                        </div>
+                        <div class="col-3 d-flex justify-content-end">
                             <a href="{{route('admin.export-data')}}" class="btn btn-success px-4"><i class="bi bi-download fw-bold"> </i> Exporter</a>
                         </div>
-                        <form class="col-6 d-flex justify-content-end">
+                        <form class="col-5 d-flex justify-content-end">
                             <input class="form-control me-2" type="search" name="recherche" placeholder="Rechercher" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Rechercher</button>
                         </form>
@@ -69,6 +72,7 @@
                             {{-- <th scope="col">Autre Numéro</th> --}}
                             <th scope="col">Email</th>
                             <th scope="col">Pays de résidence</th>
+                            <th scope="col">Chef-lieu de Région de provenance</th>
                             <th scope="col">Ville de résidence</th>
                             <th scope="col">Parrain</th>
                             <th scope="col">Electeur</th>
@@ -88,14 +92,15 @@
                                 <td>{{$user->numero}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->pays}}</td>
-                                <td>{{$user->ville}}</td>
+                                <td>{{$user->chef_lieu}}</td>
+                                <td>{{$user->ville_residence}}</td>
                                 <td>{{$user->parrain}}</td>
                                 <td>{{$user->electeur}}</td>
                                 <td>{{$user->pdci_rda}}</td>
                                 <td>{{$user->created_at->format('d-m-Y')}}</td>
                                 <td class="row d-flex justify-content-between">
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModal{{$user->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -115,7 +120,7 @@
                                         </div>
                                     </div>
                                     <!-- Modal 2 -->
-                                    <div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabe2" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModa2{{$user->id}}" tabindex="-1" aria-labelledby="exampleModalLabe2" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -135,14 +140,14 @@
                                         </div>
                                     </div>
                                     <!-- Modal 3 -->
-                                    <div class="modal fade" id="exampleModa3" tabindex="-1" aria-labelledby="exampleModalLabe3" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModa3{{$user->id}}" tabindex="-1" aria-labelledby="exampleModalLabe3" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <h5 class="text-center">Voullez-vous vraiment restorer cet utilisateur ?</h5>
+                                                    <h5 class="text-center">Voullez-vous vraiment restaurer cet utilisateur ?</h5>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="{{ route("admin.restore", $user->id) }}" method="POST">
@@ -157,13 +162,13 @@
 
                                     <div class="col-6">
                                         @if ($user->archive === 'Non')
-                                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModa2"><i class="bi bi-box-arrow-down"></i></button>
+                                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModa2{{$user->id}}"><i class="bi bi-box-arrow-down"></i></button>
                                         @else
-                                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModa3"><i class="bi bi-box-arrow-up"></i></button>
+                                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModa3{{$user->id}}"><i class="bi bi-box-arrow-up"></i></button>
                                         @endif
                                     </div>
                                     <div class="col-6">
-                                        <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-trash"></i></button>
+                                        <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{$user->id}}"><i class="bi bi-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>

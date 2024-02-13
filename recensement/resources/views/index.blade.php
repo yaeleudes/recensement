@@ -33,7 +33,7 @@
             <form method="POST" action="{{ route('formulaire.post') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="nom" class="form-label fw-bold">Nom <span class="text-danger">*</span></label>
+                    <label for="nom" class="form-label fw-bold">Nom <span class="text-danger fw-normal">(Caractères non autorisés : ' et - )</span><span class="text-danger"> *</span></label>
                     <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" value="{{ old('nom') }}" required>
                     @error('nom')
                         <div class="alert alert-danger">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="prenoms" class="form-label fw-bold">Prénom(s) <span
-                            class="text-danger">*</span></label>
+                            class="text-danger"><span class="text-danger fw-normal">(Caractères non autorisés : ' et - )</span><span class="text-danger"> *</span></label>
                     <input type="text" name="prenoms" class="form-control" id="prenoms" placeholder="Vos Prenoms" value="{{ old('prenoms') }}" required>
                     @error('prenoms')
                         <div class="alert alert-danger">
@@ -82,7 +82,7 @@
                     <div class="row mt-2">
                         <div class="col">
                             <select id="indicatif" class="form-select form-select-sm" name="idwhatsapp" required>
-                                <option selected value="+255"><span class="fs-6">Côte d'ivore : +225</span></option>
+                                <option selected value="+255"><span class="fs-6">Côte d'Ivoire : +225</span></option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{ $pays['indicatif'] }}">{{ $pays['nom'] }} :
                                         {{ $pays['indicatif'] }}</option>
@@ -104,7 +104,7 @@
                     <div class="row mt-2">
                         <div class="col">
                             <select class="form-select form-select-sm" name="idphone">
-                                <option selected value="+255"><span class="fs-6">Côte d'ivore : +225</span>
+                                <option selected value="+255"><span class="fs-6">Côte d'Ivoire : +225</span>
                                 </option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{ $pays['indicatif'] }}">{{ $pays['nom'] }} :
@@ -130,33 +130,57 @@
                 <div class="mb-3">
                     <label class="fw-bold mb-2">Pays de résidence <span class="text-danger">*</span></label>
                     <select class="form-select" name="pays" id="pays" onchange="changerChamps()" required>
-                        <option selected value="Côte d'ivore"><span class="fs-6">Côte d'ivore</span></option>
+                        <option selected value="Côte d'Ivoire"><span class="fs-6">Côte d'<I></I>Ivoire</span></option>
                         @foreach ($paysData as $pays)
                             <option value="{{ $pays['nom'] }}">{{ $pays['nom'] }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="fw-bold mb-2">Ville de résidence <span class="text-danger">*</span></label>
-                    <select class="form-select" name="ville" id="ville" required>
-                        <option selected value="Abengourou">Abengourou</option>
-                        <option value="Abidjan">Abidjan</option>
-                        <option value="Bondoukou">Bondoukou</option>
-                        <option value="Bouaké">Bouaké</option>
-                        <option value="Dabou">Dabou</option>
-                        <option value="Daloa">Daloa</option>
-                        <option value="Dimbokro">Dimbokro</option>
-                        <option value="Gagnoa">Gagnoa</option>
-                        <option value="Korhogo">Korhogo</option>
-                        <option value="Man">Man</option>
-                        <option value="Odienné">Odienné</option>
-                        <option value="San-Pédro">San-Pédro</option>
-                        <option value="Séguéla">Séguéla</option>
-                        <option value="Yammoussoukro">Yammoussoukro</option>
+                    <label class="fw-bold mb-2" for="chef_lieu" id="chef_lieu_label">Chef-lieu de Région de provenance <span class="text-danger">*</span></label>
+                    <select class="form-select mb-3" name="chef_lieu" id="chef_lieu" required>
+                            <option value="Abengourou" selected>Abengourou</option>
+                            <option value="Abidjan">Abidjan</option>
+                            <option value="Aboisso">Aboisso</option>
+                            <option value="Adzopé">Adzopé</option>
+                            <option value="Agboville">Agboville</option>
+                            <option value="Bongouanou">Bongouanou</option>
+                            <option value="Bondoukou">Bondoukou</option>
+                            <option value="Bouaflé">Bouaflé</option>
+                            <option value="Bouaké">Bouaké</option>
+                            <option value="Bouna">Bouna</option>
+                            <option value="Dabou">Dabou</option>
+                            <option value="Daloa">Daloa</option>
+                            <option value="Daoukro">Daoukro</option>
+                            <option value="Dimbokro">Dimbokro</option>
+                            <option value="Divo">Divo</option>
+                            <option value="Duékoué">Duékoué</option>
+                            <option value="Ferkessédougou">Ferkessédougou</option>
+                            <option value="Gagnoa">Gagnoa</option>
+                            <option value="Guiglo">Guiglo</option>
+                            <option value="Katiola">Katiola</option>
+                            <option value="Korhogo">Korhogo</option>
+                            <option value="Mankono">Mankono</option>
+                            <option value="Minignan">Minignan</option>
+                            <option value="Odienné">Odienné</option>
+                            <option value="San-Pédro">San-Pédro</option>
+                            <option value="Sassandra">Sassandra</option>
+                            <option value="Séguéla">Séguéla</option>
+                            <option value="Soubré">Soubré</option>
+                            <option value="Touba">Touba</option>
+                            <option value="Toumodi">Toumodi</option>
+                            <option value="Yamoussoukro">Yamoussoukro</option>
                     </select>
+                    <label class="fw-bold mb-2" for="ville_residence">Votre ville de résidence <span class="text-danger">*</span></label>
+                    <input type="text" name="ville_residence" class="form-control" id="ville_residence"placeholder="Votre ville de résidence" value="{{ old('ville_input') }}" style="display:none;">
+                    @error('ville_residence')
+                        <div class="alert alert-danger" id="ville_residence_id">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <input type="text" name="ville_input" class="form-control" id="autreVille"placeholder="Votre ville de résidence" value="{{ old('ville_input') }}" style="display:none;">
-                    @error('ville')
-                        <div class="alert alert-danger">
+                    @error('ville_input')
+                        <div class="alert alert-danger" id="ville_input_id">
                             {{ $message }}
                         </div>
                     @enderror
@@ -166,7 +190,7 @@
                         CONCORDE)
                         <span class="text-danger">*</span></label>
                     <input type="text" name="parrain" class="form-control" id="parrain" value="Moi-même"
-                        value="{{ old('parrain') }}">
+                        value="{{ old('parrain') }}" onclick="selectText(this)">
                     @error('parrain')
                         <div class="alert alert-danger">
                             {{ $message }}
@@ -219,24 +243,39 @@
         </section>
     </div>
     <script>
+        function selectText(input) {
+            input.select();
+        }
         function changerChamps() {
             var paysSelect = document.getElementById("pays");
-            var selectVilleCIV = document.getElementById("ville");
+            var selectChef_lieuCIV = document.getElementById("chef_lieu");
+            var selectChef_lieu_label = document.getElementById("chef_lieu_label");
+            var selectVilleResidence = document.getElementById("ville_residence");
             var inputAutreVille = document.getElementById("autreVille");
+            var inputerror = document.getElementById("ville_residence_id");
+            var inputerror1 = document.getElementById("ville_input_id");
 
-            if (paysSelect.value === "Côte d'ivore") {
-                selectVilleCIV.style.display = "inline";
+            if (paysSelect.value === "Côte d'Ivoire") {
+                selectChef_lieuCIV.style.display = "inline";
+                selectChef_lieu_label.style.display = "inline";
+                selectVilleResidence.style.display = "inline";
+                // inputerror.style.display = "inline";
                 inputAutreVille.style.display = "none";
+                // inputerror1.style.display = "none";
             } else {
-                selectVilleCIV.style.display = "none";
+                selectChef_lieuCIV.style.display = "none";
+                selectChef_lieu_label.style.display = "none";
+                selectVilleResidence.style.display = "none";
+                // inputerror.style.display = "none";
                 inputAutreVille.style.display = "inline";
+                // inputerror1.style.display = "inline";
             }
         }
         changerChamps();
         document.querySelectorAll('input[type="text"]').forEach(function(input) {
             input.addEventListener('input', function(event) {
                 let inputValue = event.target.value;
-                let regex = /^[a-zA-Z\s']*$/;
+                let regex = /^[a-zA-Z\s]*$/;
                 if (!regex.test(inputValue)) {
                     event.target.value = inputValue.slice(0, -1);
                 }

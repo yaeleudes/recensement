@@ -30,15 +30,18 @@ class AdminController extends Controller
         $nbrH = User::where('sexe', '=', 'Masculin')->count();
         $nbrF = User::where('sexe', '=', 'Feminin')->count();
         $recherche = $request->input('recherche');
-        if (!($recherche === NULL)) {
+        
+        if (!is_null($recherche)) {
             $search = explode(' ', $recherche);
             $nom = $search[0];
+            $users = User::where('nom', 'like', '%'.$nom.'%');
+
             if (count($search) >= 2) {
                 $prenoms = $search[1];
-                $users = User::where('nom', 'like', '%'.$nom.'%')->orWhere('prenoms', 'like', '%'.$prenoms.'%')->orderBy('nom', 'asc')->simplePaginate(10);
+                $users->where('prenoms', 'like', '%'.$prenoms.'%');
             }
-            $users = User::where('nom', 'like', '%'.$nom.'%')->orderBy('nom', 'asc')->simplePaginate(10);
-            return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF, 'nbrArchive' => $nbrArchive]);
+
+            $users = $users->orderBy('nom', 'asc')->simplePaginate(10);
         }
         return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF, 'nbrArchive' => $nbrArchive]);
     }

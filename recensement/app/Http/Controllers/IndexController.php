@@ -283,9 +283,9 @@ class IndexController extends Controller
             return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré(e) !');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
-                return redirect()->back()->withErrors(['numero' => "Cette utilisatuer existe déjà !"]);
+                return redirect()->back()->withErrors(['numero' => "Cet utilisateur existe déjà !"]);
             } else
-                return redirect()->back()->withErrors(['database' => "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayr."]);
+                return redirect()->back()->withErrors(['database' => "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayer."]);
         }
     }
     public function valide(){

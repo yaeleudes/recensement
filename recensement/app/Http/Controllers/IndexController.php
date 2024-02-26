@@ -224,6 +224,9 @@ class IndexController extends Controller
     }
 
     public function enregistrement(Request $request){
+        $ma_piece = " ";
+        $zone = $request->input('zone_rattachement');
+        $zone_vote = " ";
         try {
             $validator = Validator::make($request->all(), [
                 "nom" => "required|string|regex:/^[a-zA-Z\s']+$/",
@@ -233,51 +236,48 @@ class IndexController extends Controller
                 "numero" => 'required|unique:users',
                 "idphone" => '',
                 "autre_numero" => '',
-                "email" => '',
-                "pays" => 'required',
-                "chef_lieu" => 'required_without:ville_input',
-                "ville_residence" => 'required_without:ville_input',
-                "ville_input" => 'required_without:ville_residence',
                 "parrain" => 'string',
                 "electeur" => 'required',
                 "pdci" => 'required',
             ], $messages = [
-                'required' => 'The :attribute fields is required.',
-                'unique' => 'The :attribute fields is unique',
+                'required' => 'Le champ :attribute est obligatoire.',
+                'unique' => 'Le champ :attribute est unique.',
             ])->validate();
             $autre_numero = $request->input('idphone')." ".$request->input('autre_numero');
             if ($request->input('autre_numero') === NULL) {
                 $autre_numero = NULL;
             }
-            $chef_lieu = " ";
-            $ville = " ";
-            $email = " ";
-            if ($request->input('email') === NULL) {
-                $email = "Neant";
-            } else {
-                $email = $request->input('email');
+
+            switch($zone){
+                case 'Abidjan':
+                    $zone_vote = $request->input('ma_commune');
+                    break;
+                case 'interieur':
+                    $zone_vote = $request->input('mon_chef_lieu');
+                    break;
+                case 'horspays':
+                    $zone_vote = $request->input('pays');
+                    break;
             }
 
-            if ($request->input('ville_input') === NULL) {
-                $ville = $request->input('ville_residence');
-                $chef_lieu = $request->input('chef_lieu');
-            } else {
-                $ville = $request->input('ville_input');
-                //$chef_lieu = "Neant";
+            if ($request->input('ma_piece') === "Oui") {
+                $ma_piece = $request->input('nature_piece');
+            }else if($request->input('ma_piece') === "Non"){
+                $ma_piece = "Néant";
             }
+
             $user = User::create([
                 'nom' => Str::upper($request->input('nom')),
                 'prenoms'=> Str::upper($request->input('prenoms')),
-                'email'=> $email,
                 'numero'=> $request->input('idwhatsapp')." ".$request->input('numero'),
                 'autre_numero'=> $autre_numero,
-                'pays'=> $request->input('pays'),
-                'ville_residence'=> Str::title($ville),
-                'chef_lieu'=> Str::title($chef_lieu),
+                'zone_rattachement'=> $zone,
+                'zone_vote'=> Str::title($zone_vote),
                 'sexe'=> $request->input('sexe'),
                 'parrain'=> Str::title($request->input('parrain')),
                 'electeur'=> $request->input('electeur'),
                 'pdci_rda'=> $request->input('pdci'),
+                'ma_piece' => $ma_piece,
             ]);
             Session::put('success', true);
             return redirect()->route('valide')->with('success', 'Merci, vous avez été bien enregistré(e) !');

@@ -6,15 +6,27 @@
     <title>Concorde | formulaire</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="{{ asset('assets/images/logo.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.ico') }}" type="image/x-icon">
 </head>
 <body>
     <div class="container">
-        <header class="text-center row">
+        <header class="text-center">
             <div class="col">
                 <img src="{{ asset('assets/images/logo1.jpg') }}" alt="Logo" height="" width="" class="img-fluid">
             </div>
-            <h1 class="text-uppercase fw-bold">Concorde nationale</h1>
+            <img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" height="128" width="128">
+            <h1 class="text-uppercase fw-bold">Formulaire d'adhésion à concorde nationale</h1>
+            {{-- <div class="row d-flex">
+                <div class="col"><img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" height="128" width="128"></div>
+                <div class="col"><h2 class="text-uppercase fw-bold">Formulaire d'adhésion à concorde nationale</h2></div>
+                <div class="col"><img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" height="128" width="128"></div>
+            </div> --}}
+
             {{-- <p>Ce formulaire est créé pour recueillir les informations récentes sur les adhérents à Concorde Nationale et mettre à jour la base de données. Merci de votre participation !</p> --}}
+            {{-- <p>Ce formulaire est créé pour recueillir les informations sur les adhérents à Concorde Nationale. En remplissant, vous autorisez <span class="fw-bold text-uppercase">uniquement</span>
+                Concorde Nationale à en faire usage dans le cadre des actions pour la victoire de notre Champion, <span class="fw-bold">Président du PDCI-RDA, le Ministre Cheick Tidjane THIAM</span>
+            </p> --}}
         </header>
         <section class="p-2">
             <p class="text-danger">* Indique une question obligatoire</p>
@@ -33,11 +45,10 @@
             {{-- Le formulaire --}}
             <form method="POST" action="{{ route('formulaire.post') }}">
                 @csrf
-
                 {{-- ________________________________________________________ INFORMATIONS PERSONNELLES ________________________________________________________ --}}
                 {{-- Le champs pour le nom --}}
                 <div class="mb-3">
-                    <label for="nom" class="form-label fw-bold">Nom <span class="text-danger fw-normal">(sans ' et - )</span><span class="text-danger"> *</span></label>
+                    <label for="nom" class="form-label fw-bold">1) Nom <span class="text-danger fw-normal">(sans ' et - )</span><span class="text-danger"> *</span></label>
                     <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" value="{{ old('nom') }}" required>
                     @error('nom')
                         <div class="alert alert-danger">
@@ -47,9 +58,9 @@
                 </div>
                 {{-- Le champs pour le prenom --}}
                 <div class="mb-3">
-                    <label for="prenoms" class="form-label fw-bold">Prénom(s) <span
+                    <label for="prenoms" class="form-label fw-bold">2) Prénom(s) <span
                             class="text-danger"><span class="text-danger fw-normal">(sans ' et - )</span><span class="text-danger"> *</span></label>
-                    <input type="text" name="prenoms" class="form-control" id="prenoms" placeholder="Vos Prenoms" value="{{ old('prenoms') }}" required>
+                    <input type="text" name="prenoms" class="form-control" id="prenoms" placeholder="Vos Prénoms" value="{{ old('prenoms') }}" required>
                     @error('prenoms')
                         <div class="alert alert-danger">
                             {{ $message }}
@@ -58,7 +69,7 @@
                 </div>
                 {{-- Les champs pour le sexe --}}
                 <div class="mb-3">
-                    <label class="fw-bold">Sexe <span class="text-danger">*</span></label>
+                    <label class="fw-bold">3) Sexe <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="sexe" value="Masculin"
@@ -78,7 +89,7 @@
                 </div>
                 {{-- Le champs pour le numero --}}
                 <div class="mb-3">
-                    <label class="fw-bold">Téléphone WhatsApp <span class="text-danger">*</span></label>
+                    <label class="fw-bold">4) Téléphone WhatsApp <span class="text-danger">*</span></label>
                     <div class="row mt-2">
                         <div class="col">
                             <select id="indicatif" class="form-select form-select-sm" name="idwhatsapp" required>
@@ -101,7 +112,7 @@
                 </div>
                 {{-- Le champs pour l'autre numéro --}}
                 <div class="mb-3">
-                    <label class="fw-bold">Autre téléphone</label>
+                    <label class="fw-bold">5) Autre téléphone</label>
                     <div class="row mt-2">
                         <div class="col">
                             <select class="form-select form-select-sm" name="idphone">
@@ -121,12 +132,12 @@
                 {{-- ________________________________________________________ ZONE DE RATTACHEMENT ________________________________________________________ --}}
 
                 <div class="mb-3">
-                    <label class=" mb-2">Je souhaite intégrer la <span class="fw-bold">Coordination Concorde Nationale</span> de la zone suivante : (Choisir une seule zone où vous votez)<span class="text-danger fw-bold">*</span></label>
+                    <label class=" mb-2"><span class="fw-bold">6)</span> Je souhaite intégrer la <span class="fw-bold">Coordination Concorde Nationale</span> de la zone suivante : (Choisir une seule zone où vous votez)<span class="text-danger fw-bold">*</span></label>
                     <select class="form-select" name="zone_rattachement" id="zone_rattachement" onchange="afficherMenu()">
                         <option selected value="0000"><span class="fs-6">-- Choisir une seule zone où vous votez --</option>
                         <option value="Abidjan"><span class="fs-6">Abidjan</option>
-                        <option value="interieur"><span class="fs-6">Interieur du pays</option>
-                        <option value="horspays"><span class="fs-6">Hors du pays</option>
+                        <option value="Intérieur du pays"><span class="fs-6">Intérieur du pays</option>
+                        <option value="Hors du pays"><span class="fs-6">Hors du pays</option>
                     </select>
                 </div>
 
@@ -147,9 +158,9 @@
                     </select>
                 </div>
 
-                {{-- Menu déroulant pour le choix du Chef-lieu de Région de provenance --}}
+                {{-- Menu déroulant pour le choix du Chef-lieu de Région de vote --}}
                 <div class="mb-3" id="mon_chef_lieu">
-                    <label class="fw-bold mb-2" for="chef_lieu" id="chef_lieu_label">Selectionnez votre Chef-lieu de Région de provenance<span class="text-danger">*</span></label>
+                    <label class="fw-bold mb-2" for="chef_lieu" id="chef_lieu_label">Selectionnez votre Chef-lieu de Région de vote<span class="text-danger">*</span></label>
                     <select class="form-select mb-3" name="mon_chef_lieu" id="mon_chef_lieu" required>
                         <option value="Abengourou" selected>Abengourou</option>
                         <option value="Abidjan">Abidjan</option>
@@ -198,7 +209,7 @@
 
                 {{-- Champs pour le nom du parrain --}}
                 <div class="mb-3">
-                    <label for="parrain" class="form-label fw-bold">Votre parrain (celui qui vous fait connaître
+                    <label for="parrain" class="form-label fw-bold">7) Votre parrain (celui qui vous a fait connaître
                         CONCORDE)
                         <span class="text-danger">*</span></label>
                     <input type="text" name="parrain" class="form-control" id="parrain" value="Moi-même"
@@ -213,7 +224,7 @@
                 {{-- ________________________________________________________ AUTRES INFORMATIONS SPECIFIQUES ________________________________________________________ --}}
                 {{-- Bouton pour electeurs --}}
                 <div class="mb-3">
-                    <label class="fw-bold">Etes-vous électeur ? <span class="text-danger">*</span></label>
+                    <label class="fw-bold">8) Etes-vous électeur ? <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="electeur" id="Ye" value="Oui" checked>
@@ -227,7 +238,7 @@
                 </div>
                 {{-- Bouton pour partie --}}
                 <div class="mb-3">
-                    <label class="fw-bold">Etes-vous militant du PDCI-RDA ? <span class="text-danger">*</span></label>
+                    <label class="fw-bold">9) Etes-vous militant du PDCI-RDA ? <span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="pdci" id="Yp" value="Oui" checked>
@@ -235,29 +246,29 @@
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="pdci" id="Np" value="Non">
-                            <label class="form-check-label" for="Np"></label>
+                            <label class="form-check-label" for="Np">Non</label>
                         </div>
                     </div>
                 </div>
                 {{-- Bouton pour la piece --}}
                 <div class="mb-3">
-                    <label class="fw-bold">Avez-vous une pièce d'identité en cours de validité ?<span class="text-danger">*</span></label>
+                    <label class="fw-bold">10) Avez-vous une pièce d'identité en cours de validité ?<span class="text-danger">*</span></label>
                     <div class="d-flex justify-content-evenly mt-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="ma_piece" id="Yma_piece" value="Oui" checked>
+                            <input class="form-check-input" type="radio" name="ma_piece" id="Yma_piece" value="Oui" onchange="afficheIdent()" checked>
                             <label class="form-check-label" for="Yma_piece">Oui</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="ma_piece" id="Nma_piece" value="Non">
+                            <input class="form-check-input" type="radio" name="ma_piece" id="Nma_piece" value="Non" onchange="afficheIdent()">
                             <label class="form-check-label" for="Nma_piece">Non</label>
                         </div>
                     </div>
                 </div>
                 {{-- Bouton pour choix de la piece --}}
-                <div class="mb-3">
-                    <label class="fw-bold">Quelle est sa nature ?<span class="text-danger">*</span></label>
+                <div class="mb-3" id="zone_piece">
+                    <label class="fw-bold">11) Quelle est sa nature ?<span class="text-danger">*</span></label>
                     <div class="flex-column mt-2 ms-2">
-                        <div class="form-check d-flex">
+                        <div class="form-check">
                             <input class="form-check-input" type="radio" name="nature_piece" id="CNI" value="CNI" checked>
                             <label class="form-check-label" for="CNI">CNI</label>
                         </div>
@@ -273,13 +284,17 @@
                             <input class="form-check-input" type="radio" name="nature_piece" id="Attestation d'identité" value="Attestation d'identité">
                             <label class="form-check-label" for="Attestation d'identité">Attestation d'identité</label>
                         </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="nature_piece" id="Néant" value="Néant">
+                            <label class="form-check-label" for="Néant">Néant</label>
+                        </div>
                     </div>
                 </div>
 
                 <p class="text-danger fs-smaller"><i class="bi bi-exclamation-triangle-fill fw-bold"> </i> Merci de vérifier
                     les informations saisies avant de cliquer sur <span class="fw-bold">Envoyer</span> pour éviter les
                     erreurs. </p>
-                {{-- <button type="submit" class="btn btn-success px-4">Envoyer</button> --}}
+                <button type="submit" class="btn btn-success px-4">Envoyer</button>
             </form>
         </section>
     </div>
@@ -302,13 +317,13 @@
                     pays.style.display = "none";
                     console.log("test 1");
                     break;
-                case "interieur" :
+                case "Intérieur du pays" :
                     ma_commune.style.display = "none";
                     mon_chef_lieu.style.display = "block";
                     pays.style.display = "none";
                     console.log("test 2");
                     break;
-                case "horspays" :
+                case "Hors du pays" :
                     ma_commune.style.display = "none";
                     mon_chef_lieu.style.display = "none";
                     pays.style.display = "block";
@@ -321,6 +336,19 @@
                     console.log("test 3");
             }
         };
+        function afficheIdent() {
+            var choix = document.querySelector('input[name = "ma_piece"]:checked').value;
+            var choix_piece = document.getElementById('zone_piece');
+
+            switch(choix){
+                case 'Oui' :
+                    choix_piece.style.display = "block";
+                    break;
+                case 'Non' :
+                    choix_piece.style.display = "none";
+                    break;
+            }
+        }
         afficherMenu();
         document.querySelectorAll('input[type="text"]').forEach(function(input) {
             input.addEventListener('input', function(event) {

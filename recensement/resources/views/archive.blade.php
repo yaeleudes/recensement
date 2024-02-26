@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="{{ asset('assets/images/logo.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.ico') }}" type="image/x-icon">
         {{-- <link rel="stylesheet" href="{{asset('assets/css/pagination.css')}}"> --}}
     <title>Admin | Dashboard</title>
 </head>
@@ -20,7 +21,7 @@
                 <div class="row d-flex justify-content-end align-items-center">
                     <div class="col-12 d-flex row p-3 justify-content-end">
                         <div class="col-4 d-flex justify-content-end">
-                            <a href="{{route('admin.dashboard')}}" class="btn btn-success px-4"><i class="bi bi-box-arrow-left fw-bold"> </i> Retour</a>
+                            <a href="{{route('admin.dashboard')}}" class="btn btn-success px-4"><i class="bi bi-arrow-left-square fw-bold"> </i> Retour</a>
                         </div>
                         <form class="col-6 d-flex justify-content-end">
                             <input class="form-control me-2" type="search" name="recherche" placeholder="Rechercher" aria-label="Search">
@@ -50,13 +51,12 @@
                             <th scope="col">Sexe</th>
                             <th scope="col">Numéro</th>
                             {{-- <th scope="col">Autre Numéro</th> --}}
-                            <th scope="col">Email</th>
-                            <th scope="col">Pays de résidence</th>
-                            <th scope="col">Chef-lieu de Région de provenance</th>
-                            <th scope="col">Ville de résidence</th>
+                            <th scope="col">Zone de rattachement</th>
+                            <th scope="col">Zone de vote</th>
+                            <th scope="col">Pièce d'identité</th>
                             <th scope="col">Parrain</th>
                             <th scope="col">Electeur</th>
-                            <th scope="col">PDCI-RDA</th>
+                            <th scope="col">Militant du PDCI-RDA</th>
                             <th scope="col">Date d'inscrtion</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -70,10 +70,9 @@
                                 <td>{{$user->prenoms}}</td>
                                 <td>{{$user->sexe}}</td>
                                 <td>{{$user->numero}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>{{$user->pays}}</td>
-                                <td>{{$user->chef_lieu}}</td>
-                                <td>{{$user->ville_residence}}</td>
+                                <td>{{$user->zone_rattachement}}</td>
+                                <td>{{$user->zone_vote}}</td>
+                                <td>{{$user->ma_piece}}</td>
                                 <td>{{$user->parrain}}</td>
                                 <td>{{$user->electeur}}</td>
                                 <td>{{$user->pdci_rda}}</td>

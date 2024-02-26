@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class AdminController extends Controller
 {
     public function index(){
-
+        
         // $admin = new Admin();
         // $admin->email = 'admin@gmail.com';
         // //$admin->password = '123456';
@@ -30,7 +30,7 @@ class AdminController extends Controller
         $nbrH = User::where('sexe', '=', 'Masculin')->count();
         $nbrF = User::where('sexe', '=', 'Feminin')->count();
         $recherche = $request->input('recherche');
-        
+
         if (!is_null($recherche)) {
             $search = explode(' ', $recherche);
             $nom = $search[0];

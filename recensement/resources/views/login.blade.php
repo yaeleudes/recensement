@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+        <link rel="icon" href="{{ asset('assets/images/logo.ico') }}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('assets/images/logo.ico') }}" type="image/x-icon">
     <title>Admin | Login</title>
 </head>
 <body>
@@ -28,17 +31,22 @@
 
             <form action="{{route('login')}}" method="post">
                 @csrf
-                <div class="mb-3">
-                    <label for="email" class="form-label fw-bold">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" required>
-                </div>
+                <div class="row d-flex justify-content-center align-items-center rounded-4 shadow mb-5 pb-3">
+                    <img src="{{asset('assets/images/Login-amico.png')}}" alt="login" height="200" width="" class="img-left col-md-7 d-flex justify-content-center">
+                    <div class="col-md-5 flex-column">
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold">Email</label>
+                            <input type="email" name="email" class="form-control" id="email" required>
+                        </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label fw-bold">Mot de Passe</label>
-                    <input type="password" name="password" class="form-control" id="password" required>
-                </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-bold">Mot de Passe</label>
+                            <input type="password" name="password" class="form-control" id="password" required>
+                        </div>
 
-                <button type="submit" class="btn btn-success px-5">Envoyer</button>
+                        <button type="submit" class="btn btn-success px-5">Envoyer</button>
+                    </div>
+                </div>
             </form>
         </section>
     </div>

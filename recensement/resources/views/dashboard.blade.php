@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="{{ asset('assets/images/logo.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.ico') }}" type="image/x-icon">
     <title>Admin | Dashboard</title>
 </head>
 <body>
@@ -18,10 +20,10 @@
             <div class="col-8 d-flex flex-column justify-content-center">
                 <div class="row d-flex justify-content-end align-items-center">
                     <div class="col-12 d-flex row p-3 justify-content-end">
-                        <div class="col-4 d-flex justify-content-end">
+                        <div class="col-4 d-flex justify-content-end p-0">
                             <a href="{{route('admin.archivage')}}" class="btn btn-success px-4"><i class="bi bi-box-arrow-down fw-bold"> </i> Archivage</a>
                         </div>
-                        <div class="col-3 d-flex justify-content-end">
+                        <div class="col-3 d-flex justify-content-end p-0">
                             <a href="{{route('admin.export-data')}}" class="btn btn-success px-4"><i class="bi bi-download fw-bold"> </i> Exporter</a>
                         </div>
                         <form class="col-5 d-flex justify-content-end">
@@ -42,29 +44,29 @@
             </div>
         @endif
         <section class="row d-flex justify-content-between my-4">
-            <div class="col-3 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center p-0">
                 <div class="col-5 p-2 bg-success rounded text-center">
-                    <p class="m-0 text-white fw-bold px-2"> <i class="bi bi-people fw-bold"> </i> Inscrits : {{ $nbrInscrit }}</p>
+                    <p class="m-0 text-white fw-bold px-0"> <i class="bi bi-people fw-bold"> </i> Inscrits : {{ $nbrInscrit }}</p>
                 </div>
             </div>
-            <div class="col-3 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center p-0">
                 <div class="col-5 p-2 bg-success rounded text-center">
-                    <p class="m-0 text-white fw-bold px-2"> <i class="bi bi-box-arrow-down fw-bold"> </i> Archivés : {{ $nbrArchive }}</p>
+                    <p class="m-0 text-white fw-bold px-0"> <i class="bi bi-box-arrow-down fw-bold"> </i> Archivés : {{ $nbrArchive }}</p>
                 </div>
             </div>
-            <div class="col-3 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center p-0">
                 <div class="col-5 p-2 bg-success rounded text-center">
-                    <p class="m-0 text-white fw-bold px-2"> <i class="bi bi-gender-male fw-bold"> </i>Hommes : {{$nbrH}}</p>
+                    <p class="m-0 text-white fw-bold px-0"> <i class="bi bi-gender-male fw-bold"> </i>Hommes : {{$nbrH}}</p>
                 </div>
             </div>
-            <div class="col-3 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center p-0">
                 <div class="col-5 p-2 bg-success rounded text-center">
-                    <p class="m-0 text-white fw-bold px-2"> <i class="bi bi-gender-female fw-bold"> </i> Femmes : {{$nbrF}}</p>
+                    <p class="m-0 text-white fw-bold px-0"> <i class="bi bi-gender-female fw-bold"> </i> Femmes : {{$nbrF}}</p>
                 </div>
             </div>
         </section>
         {{-- Section Tableau --}}
-        <section class="flex-column justify-content-center p-2 rounded">
+        <section class="flex-column justify-content-center p-0 rounded">
             <h1 class="text-center">Liste des inscrits</h1>
                 <table class="table">
                     <thead>
@@ -74,13 +76,12 @@
                             <th scope="col">Sexe</th>
                             <th scope="col">Numéro</th>
                             {{-- <th scope="col">Autre Numéro</th> --}}
-                            <th scope="col">Email</th>
-                            <th scope="col">Pays de résidence</th>
-                            <th scope="col">Chef-lieu de Région de provenance</th>
-                            <th scope="col">Ville de résidence</th>
+                            <th scope="col">Zone de rattachement</th>
+                            <th scope="col">Zone de vote</th>
+                            <th scope="col">Pièce d'identité</th>
                             <th scope="col">Parrain</th>
                             <th scope="col">Electeur</th>
-                            <th scope="col">PDCI-RDA</th>
+                            <th scope="col">Militant du PDCI-RDA</th>
                             <th scope="col">Date d'inscrtion</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -94,10 +95,9 @@
                                 <td>{{$user->prenoms}}</td>
                                 <td>{{$user->sexe}}</td>
                                 <td>{{$user->numero}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>{{$user->pays}}</td>
-                                <td>{{$user->chef_lieu}}</td>
-                                <td>{{$user->ville_residence}}</td>
+                                <td>{{$user->zone_rattachement}}</td>
+                                <td>{{$user->zone_vote}}</td>
+                                <td>{{$user->ma_piece}}</td>
                                 <td>{{$user->parrain}}</td>
                                 <td>{{$user->electeur}}</td>
                                 <td>{{$user->pdci_rda}}</td>

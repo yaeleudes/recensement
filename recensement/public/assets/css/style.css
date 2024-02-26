@@ -1,0 +1,24 @@
+/* .img-left {
+    max-width: 100%;
+    height: auto;
+    text-align: center;
+} */
+
+.img-left {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Pour les écrans de bureau */
+@media only screen and (min-width: 768px) {
+    .img-left {
+        max-width: 50%; /* Réglez la taille appropriée pour le bureau */
+    }
+}
+
+/* Pour les appareils mobiles */
+@media only screen and (max-width: 767px) {
+    .img-left {
+        max-width: 60%; /* Réglez la taille appropriée pour les mobiles */
+    }
+}

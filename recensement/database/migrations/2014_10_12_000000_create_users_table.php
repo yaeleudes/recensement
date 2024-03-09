@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
@@ -20,12 +21,13 @@ return new class extends Migration
             $table->string('autre_numero')->nullable();
             // $table->string('email')->nullable();
             $table->string('zone_rattachement');
-            $table->string('zone_vote');
+            $table->string('zone_vote')->nullable();
             $table->string('parrain');
             $table->enum('electeur', ['Oui', 'Non'])->default('Oui');
             $table->enum('pdci_rda', ['Oui', 'Non'])->default('Oui');
             $table->string('ma_piece');
             $table->enum('archive', ['Oui', 'Non'])->default('Non');
+            $table->foreign('zone_vote')->references('labelle')->on('departements');
             // $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

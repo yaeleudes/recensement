@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function departement(): BelongsTo {
+        return $this->belongsTo(Departement::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,15 +24,15 @@ class User extends Authenticatable
     protected $fillable = [
         'nom',
         'prenoms',
+        'sexe',
         'numero',
         'autre_numero',
         'zone_rattachement',
         'zone_vote',
-        'sexe',
         'parrain',
         'electeur',
-        'pdci-rda',
-        'ma_piece'
+        'pdci_rda',
+        'ma_piece',
     ];
 
     /**

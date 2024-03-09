@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +49,7 @@
                 {{-- Le champs pour le nom --}}
                 <div class="mb-3">
                     <label for="nom" class="form-label fw-bold">1) Nom <span class="text-danger fw-normal">(sans ' et - )</span><span class="text-danger"> *</span></label>
-                    <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" value="{{ old('nom') }}" required>
+                    <input type="text" name="nom" class="form-control" id="nom" placeholder="Votre Nom" value="{{ old('nom') }}" pattern="^[a-zA-Z\s]*$" required>
                     @error('nom')
                         <div class="alert alert-danger">
                             {{ $message }}
@@ -93,7 +93,7 @@
                     <div class="row mt-2">
                         <div class="col">
                             <select id="indicatif" class="form-select form-select-sm" name="idwhatsapp" required>
-                                <option selected value="+255"><span class="fs-6">Côte d'Ivoire : +225</span></option>
+                                <option selected value="+225"><span class="fs-6">Côte d'Ivoire : +225</span></option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{ $pays['indicatif'] }}">{{ $pays['nom'] }} :
                                         {{ $pays['indicatif'] }}</option>
@@ -116,7 +116,7 @@
                     <div class="row mt-2">
                         <div class="col">
                             <select class="form-select form-select-sm" name="idphone">
-                                <option selected value="+255"><span class="fs-6">Côte d'Ivoire : +225</span>
+                                <option selected value="+225"><span class="fs-6">Côte d'Ivoire : +225</span>
                                 </option>
                                 @foreach ($paysData as $pays)
                                     <option value="{{ $pays['indicatif'] }}">{{ $pays['nom'] }} :
@@ -132,9 +132,9 @@
                 {{-- ________________________________________________________ ZONE DE RATTACHEMENT ________________________________________________________ --}}
 
                 <div class="mb-3">
-                    <label class=" mb-2"><span class="fw-bold">6)</span> Je souhaite intégrer la <span class="fw-bold">Coordination Concorde Nationale</span> de la zone suivante : (Choisir une seule zone où vous votez)<span class="text-danger fw-bold">*</span></label>
-                    <select class="form-select" name="zone_rattachement" id="zone_rattachement" onchange="afficherMenu()">
-                        <option selected value="0000"><span class="fs-6">-- Choisir une seule zone où vous votez --</option>
+                    <label class=" mb-2"><span class="fw-bold">6)</span> Je souhaite intégrer la <span class="fw-bold">Coordination Concorde Nationale</span> de la zone suivante : (<span class="fst-italic">Choisir une seule zone où vous votez</span>)<span class="text-danger fw-bold">*</span></label>
+                    <select class="form-select" name="zone_rattachement" id="zone_rattachement" onchange="afficherMenu()" required>
+                        <option selected value=""><span class="fs-6">Choisir une seule zone où vous votez</option>
                         <option value="Abidjan"><span class="fs-6">Abidjan</option>
                         <option value="Intérieur du pays"><span class="fs-6">Intérieur du pays</option>
                         <option value="Hors du pays"><span class="fs-6">Hors du pays</option>
@@ -147,12 +147,15 @@
                     <select class="form-select" name="ma_commune" id="ma_commune" required>
                         <option value="abobo">Abobo</option>
                         <option value="adjame">Adjamé</option>
+                        <option value="anyama">Anyama</option>
                         <option value="attecoube">Attécoubé</option>
+                        <option value="bingerville">Bingerville</option>
                         <option value="cocody">Cocody</option>
                         <option value="koumassi">Koumassi</option>
                         <option value="marcory">Marcory</option>
                         <option value="plateau">Plateau</option>
                         <option value="portbouet">Port-Bouët</option>
+                        <option value="songon">Songon</option>
                         <option value="treichville">Treichville</option>
                         <option value="yopougon">Yopougon</option>
                     </select>
@@ -163,39 +166,117 @@
                     <label class="fw-bold mb-2" for="chef_lieu" id="chef_lieu_label">Selectionnez votre Chef-lieu de Région de vote<span class="text-danger">*</span></label>
                     <select class="form-select mb-3" name="mon_chef_lieu" id="mon_chef_lieu" required>
                         <option value="Abengourou" selected>Abengourou</option>
-                        <option value="Abidjan">Abidjan</option>
                         <option value="Aboisso">Aboisso</option>
+                        <option value="Adiaké">Adiaké</option>
                         <option value="Adzopé">Adzopé</option>
                         <option value="Agboville">Agboville</option>
-                        <option value="Bongouanou">Bongouanou</option>
+                        <option value="Agnibilékrou">Agnibilékrou</option>
+                        <option value="Akoupé">Akoupé</option>
+                        <option value="Alépé">Alépé</option>
+                        <option value="Arrah">Arrah</option>
+                        <option value="Attiégouakro">Attiégouakro</option>
+                        <option value="Bangolo">Bangolo</option>
+                        <option value="Bettié">Bettié</option>
+                        <option value="Béoumi">Béoumi</option>
+                        <option value="Biankouma">Biankouma</option>
+                        <option value="Bloléquin">Bloléquin</option>
+                        <option value="Bocanda">Bocanda</option>
                         <option value="Bondoukou">Bondoukou</option>
+                        <option value="Bongouanou">Bongouanou</option>
+                        <option value="Bonon">Bonon</option>
                         <option value="Bouaflé">Bouaflé</option>
                         <option value="Bouaké">Bouaké</option>
                         <option value="Bouna">Bouna</option>
+                        <option value="Boundiali">Boundiali</option>
+                        <option value="Botro">Botro</option>
+                        <option value="Buyo">Buyo</option>
+                        <option value="Dabakala">Dabakala</option>
                         <option value="Dabou">Dabou</option>
                         <option value="Daloa">Daloa</option>
+                        <option value="Danané">Danané</option>
                         <option value="Daoukro">Daoukro</option>
                         <option value="Dimbokro">Dimbokro</option>
                         <option value="Divo">Divo</option>
                         <option value="Duékoué">Duékoué</option>
+                        <option value="Dianra">Dianra</option>
+                        <option value="Didiévi">Didiévi</option>
+                        <option value="Dikodougou">Dikodougou</option>
+                        <option value="Djékanou">Djékanou</option>
+                        <option value="Doropo">Doropo</option>
+                        <option value="Facobly">Facobly</option>
                         <option value="Ferkessédougou">Ferkessédougou</option>
+                        <option value="Fresco">Fresco</option>
                         <option value="Gagnoa">Gagnoa</option>
+                        <option value="Gbéléban">Gbéléban</option>
+                        <option value="Gohitafla">Gohitafla</option>
+                        <option value="Grand-Bassam">Grand-Bassam</option>
+                        <option value="de Grand-Lahou">Grand-Lahou</option>
                         <option value="Guiglo">Guiglo</option>
+                        <option value="Guitry">Guitry</option>
+                        <option value="Guéyo">Guéyo</option>
+                        <option value="Issia">Issia</option>
+                        <option value="Jacqueville">Jacqueville</option>
+                        <option value="Kani">Kani</option>
+                        <option value="Kaniasso">Kaniasso</option>
                         <option value="Katiola">Katiola</option>
                         <option value="Korhogo">Korhogo</option>
+                        <option value="Koro">Koro</option>
+                        <option value="Kouably">Kouably</option>
+                        <option value="Kouassi-Kouassikro">Kouassi-Kouassikro</option>
+                        <option value="Kouibly">Kouibly</option>
+                        <option value="Koun-Fao">Koun-Fao</option>
+                        <option value="Kounahiri">Kounahiri</option>
+                        <option value="Kouto">Kouto</option>
+                        <option value="Kong">Kong</option>
+                        <option value="Lakota">Lakota</option>
+                        <option value="Madinani">Madinani</option>
+                        <option value="Man">Man</option>
                         <option value="Mankono">Mankono</option>
                         <option value="Minignan">Minignan</option>
+                        <option value="M’Bahiakro">M’Bahiakro</option>
+                        <option value="M’Batto">M’Batto</option>
+                        <option value="M’Bengué">M’Bengué</option>
+                        <option value="Méagui">Méagui</option>
+                        <option value="Nassian">Nassian</option>
+                        <option value="Niakaramadougou">Niakaramadougou</option>
                         <option value="Odienné">Odienné</option>
+                        <option value="Ouaninou">Ouaninou</option>
+                        <option value="Ouellé">Ouellé</option>
+                        <option value="Ouangolodougou">Ouangolodougou</option>
+                        <option value="Oumé">Oumé</option>
+                        <option value="Prikro">Prikro</option>
                         <option value="San-Pédro">San-Pédro</option>
+                        <option value="Sakassou">Sakassou</option>
+                        <option value="Samatiguila">Samatiguila</option>
                         <option value="Sassandra">Sassandra</option>
                         <option value="Séguéla">Séguéla</option>
+                        <option value="Séguélon">Séguélon</option>
+                        <option value="Sikensi">Sikensi</option>
+                        <option value="Sinématiali">Sinématiali</option>
+                        <option value="Sinfra">Sinfra</option>
+                        <option value="Sipilou">Sipilou</option>
                         <option value="Soubré">Soubré</option>
+                        <option value="Tiapoum">Tiapoum</option>
+                        <option value="Tiassalé">Tiassalé</option>
+                        <option value="Tiébissou">Tiébissou</option>
+                        <option value="Tanda">Tanda</option>
+                        <option value="Taï">Taï</option>
+                        <option value="Taabo">Taabo</option>
+                        <option value="Tabou">Tabou</option>
+                        <option value="Téhini">Téhini</option>
+                        <option value="Tengréla">Tengréla</option>
                         <option value="Touba">Touba</option>
+                        <option value="Toulepleu">Toulepleu</option>
                         <option value="Toumodi">Toumodi</option>
+                        <option value="Transua">Transua</option>
+                        <option value="Vavoua">Vavoua</option>
+                        <option value="Yakassé-Attobrou">Yakassé-Attobrou</option>
                         <option value="Yamoussoukro">Yamoussoukro</option>
+                        <option value="Zuénoula">Zuénoula</option>
+                        <option value="Zouan-Hounien">Zouan-Hounien</option>
+                        <option value="Zoukougbeu">Zoukougbeu</option>
                     </select>
                 </div>
-
                 {{-- Menu déroulant pour le choix du pays--}}
                 <div class="mb-3" id="pays">
                     <label class="fw-bold mb-2">Selectionnez un pays <span class="text-danger">*</span></label>
@@ -209,8 +290,8 @@
 
                 {{-- Champs pour le nom du parrain --}}
                 <div class="mb-3">
-                    <label for="parrain" class="form-label fw-bold">7) Votre parrain (celui qui vous a fait connaître
-                        CONCORDE)
+                    <label for="parrain" class="form-label fw-bold">7) Votre parrain <span class="fw-normal fst-italic">(celui qui vous a fait connaître
+                        CONCORDE)</span>
                         <span class="text-danger">*</span></label>
                     <input type="text" name="parrain" class="form-control" id="parrain" value="Moi-même"
                         value="{{ old('parrain') }}" onclick="selectText(this)">
@@ -283,10 +364,6 @@
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="nature_piece" id="Attestation d'identité" value="Attestation d'identité">
                             <label class="form-check-label" for="Attestation d'identité">Attestation d'identité</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="nature_piece" id="Néant" value="Néant">
-                            <label class="form-check-label" for="Néant">Néant</label>
                         </div>
                     </div>
                 </div>
@@ -368,6 +445,24 @@
                 }
             });
         });
+
+        function afficherOptions() {
+            // Récupération de la valeur saisie dans le champ de texte
+            var saisie = document.getElementById("villesInput").value.toLowerCase();
+            // Récupération de toutes les options du select
+            var options = document.getElementById("villesSelect").options;
+            // Parcours de toutes les options pour déterminer si elles correspondent à la saisie
+            for (var i = 0; i < options.length; i++) {
+                // Si la saisie correspond à une option, afficher le select et laisser l'option sélectionnée
+                if (options[i].value.toLowerCase().startsWith(saisie)) {
+                document.getElementById("villesSelect").style.display = "block";
+                options[i].selected = true;
+                return;
+                }
+            }
+            // Si aucune correspondance, cacher le select
+            document.getElementById("villesSelect").style.display = "none";
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

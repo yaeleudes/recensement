@@ -18,8 +18,8 @@ class IndexController extends Controller
         // if (Session::has('deja_soumis')) {
         //     return view('valideok');
         // }
-        $paysData = '
-        {
+        $paysData =
+        '{
             "pays": [
               {"nom": "Afghanistan", "indicatif": "+93"},
               {"nom": "Afrique du Sud", "indicatif": "+27"},
@@ -218,7 +218,7 @@ class IndexController extends Controller
               {"nom": "Zambie", "indicatif": "+260"},
               {"nom": "Zimbabwe", "indicatif": "+263"}
             ]
-          }';
+        }';
         $data = json_decode($paysData, true);
         return view('index', ['paysData' => $data['pays']]);
     }
@@ -252,26 +252,24 @@ class IndexController extends Controller
                 case 'Abidjan':
                     $zone_vote = $request->input('ma_commune');
                     break;
-                case 'interieur':
+                case 'Intérieur du pays':
                     $zone_vote = $request->input('mon_chef_lieu');
                     break;
-                case 'horspays':
+                case 'Hors du pays':
                     $zone_vote = $request->input('pays');
                     break;
             }
-
             if ($request->input('ma_piece') === "Oui") {
                 $ma_piece = $request->input('nature_piece');
             }else if($request->input('ma_piece') === "Non"){
                 $ma_piece = "Néant";
             }
-
             $user = User::create([
                 'nom' => Str::upper($request->input('nom')),
                 'prenoms'=> Str::upper($request->input('prenoms')),
                 'numero'=> $request->input('idwhatsapp')." ".$request->input('numero'),
                 'autre_numero'=> $autre_numero,
-                'zone_rattachement'=> $zone,
+                'zone_rattachement'=> Str::title($zone),
                 'zone_vote'=> Str::title($zone_vote),
                 'sexe'=> $request->input('sexe'),
                 'parrain'=> Str::title($request->input('parrain')),

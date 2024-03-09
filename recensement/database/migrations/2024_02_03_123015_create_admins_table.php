@@ -11,10 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
+            $table->string('matricule')->unique();
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('contact')->unique();
+            $table->enum('role', ['super','admin'])->default('admin');
+            $table->string('mon_axe')->nullable();
+            $table->foreign('mon_axe')->references('labelle')->on('axes');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->default('P@ssword123');
             $table->timestamps();
         });
     }

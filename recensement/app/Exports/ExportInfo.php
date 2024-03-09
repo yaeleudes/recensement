@@ -10,27 +10,29 @@
 
         return [
             "Nom",
-            "Prenoms",
+            "Prénoms",
+            "Sexe",
             "Numéro WhatsApp",
             "Autre numéro",
-            "Email",
-            "Pays de résidence",
-            "Chef-lieu de Région de provenance",
-            "Ville de résidence",
-            "Sexe",
+            "Zone de rattachement",
+            "Localité de vote",
             "Parrain",
             "Electeur",
-            "PDCI-RDA",
+            "Militant du PDCI-RDA",
+            "Pièce d'identité",
             "Date d'inscrtion"
             ];
         }
 
         public function collection(){
-            $data = User::select('nom', 'prenoms', 'numero', 'autre_numero', 'email', 'pays','chef_lieu', 'ville_residence', 'sexe', 'parrain', 'electeur', 'pdci_rda')
+            $data = User::select('nom', 'prenoms', 'sexe', 'numero', 'autre_numero', 'zone_rattachement', 'zone_vote', 'parrain', 'electeur', 'pdci_rda', 'ma_piece')
                 ->get()
                 ->map(function ($user) {
-                    $user->created_at_formatted = Carbon::parse($user->created_at)->format('d-m-Y');
+                    $user->created_at_formatted = Carbon::parse($user->created_at)->format('d-m-Y H\hi');
                     return $user;});
             return collect($data);
         }
+        // public function collection(){
+        //     return User::select('nom', 'prenoms', 'sexe', 'numero', 'autre_numero', 'zone_rattachement', 'zone_vote', 'parrain', 'electeur', 'pdci_rda', 'ma_piece', 'created_at')->get();
+        // }
 }

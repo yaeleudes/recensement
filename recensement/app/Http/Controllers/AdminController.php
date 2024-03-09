@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     public function index(){
-        
+
         // $admin = new Admin();
         // $admin->email = 'admin@gmail.com';
         // //$admin->password = '123456';
@@ -24,11 +25,9 @@ class AdminController extends Controller
     }
 
     public function dashboard(Request $request){
-        $nbrInscrit = User::count();
-        $nbrArchive = User::where('archive', '=', 'Oui')->count();
-        $users = User::where('archive', '=', 'Non')->orderBy('nom', 'asc')->simplePaginate(10);
-        $nbrH = User::where('sexe', '=', 'Masculin')->count();
-        $nbrF = User::where('sexe', '=', 'Feminin')->count();
+        // $users = User::where('archive', '=', 'Non')->orderBy('nom', 'asc')->simplePaginate(10);
+        $user = User::get();
+        $users = User::where('archive', '=', 'Non')->latest()->simplePaginate(10);
         $recherche = $request->input('recherche');
 
         if (!is_null($recherche)) {
@@ -40,10 +39,13 @@ class AdminController extends Controller
                 $prenoms = $search[1];
                 $users->where('prenoms', 'like', '%'.$prenoms.'%');
             }
-
-            $users = $users->orderBy('nom', 'asc')->simplePaginate(10);
+            // $users = $users->orderBy('nom', 'asc')->simplePaginate(10);
+            $users = $users->latest()->simplePaginate(10);
         }
-        return view('dashboard', ['nbrInscrit' => $nbrInscrit, 'users' => $users, 'nbrH' => $nbrH, 'nbrF' => $nbrF, 'nbrArchive' => $nbrArchive]);
+        return view('dashboard', [
+            'user' => $user,
+            'users' => $users,
+        ]);
     }
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
@@ -75,11 +77,22 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', "Utilisateur restauré avec succès.");
     }
     public function archivage(){
-        $usersArchive = User::where('archive', '=', 'Oui')->orderBy('nom', 'asc')->simplePaginate(10);
-        return view('archive', ['usersArchive' => $usersArchive]);
+        $users = User::get();
+        // $usersArchive = User::where('archive', '=', 'Oui')->orderBy('nom', 'asc')->simplePaginate(10);
+        $usersArchive = User::where('archive', '=', 'Oui')->latest()->simplePaginate(10);
+        return view('archive', [
+            'usersArchive' => $usersArchive,
+            'users' => $users
+        ]);
     }
     public function exportUsersData(){
         $fileName = 'base-de-données.xlsx';
         return Excel::download(new ExportInfo, $fileName);
+    }
+    public function statistique(){
+        $users = User::get();
+        return view('statistique', [
+            'users' => $users
+        ]);
     }
 }

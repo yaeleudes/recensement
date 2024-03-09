@@ -13,7 +13,17 @@ class Admin extends Authenticatable implements IlluminateAuthenticatableContract
 {
     use HasFactory, Notifiable, HasApiTokens;
 
+    public function axe(): BelongsTo{
+        return $this->belongsTo(Axe::class);
+    }
+
     protected $fillable = [
+        'nom',
+        'prenom',
+        'contact',
+        'matricule',
+        'role',
+        'mon_axe',
         'email',
         'password',
     ];
